@@ -25,19 +25,19 @@ class Users(db.Model):
     name = db.Column(db.String(30), nullable=True)
     surname = db.Column(db.String(30), nullable=True)
     patronic = db.Column(db.String(30), nullable=True)
-    phone = db.Column(db.Integer(15), nullable=True)
+    phone = db.Column(db.String(15), nullable=True)
     bonuses = db.Column(db.Float, nullable=True)
 
 
 class Orders(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     id_of_user = db.Column(db.Integer,  db.ForeignKey("users.id"))
-    address = db.Column(db.Column(db.String(200), nullable=True))
+    address = db.Column(db.String(200), nullable=True)
     email = db.Column(db.String(30), index=True, unique=True, nullable=True)
     track_num = db.Column(db.String(30), nullable=True)
-    comment_of_user = db.Column(db.Column(db.String(200), nullable=True))
-    comment_of_sender = db.Column(db.Column(db.String(200), nullable=True))
-    status = db.Column(db.Column(db.String(30), nullable=True))
+    comment_of_user = db.Column(db.String(200), nullable=True)
+    comment_of_sender = db.Column(db.String(200), nullable=True)
+    status = db.Column(db.String(30), nullable=True)
 
 
 def main():
