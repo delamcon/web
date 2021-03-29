@@ -42,7 +42,8 @@ class Orders(db.Model):
 
 def main():
     db.create_all()
-
+    
+    @app.route('/')
     @app.route('/main_page')
     def main_page():
         return render_template('main_page.html')
