@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -42,6 +42,11 @@ class Orders(db.Model):
 
 def main():
     db.create_all()
+
+    @app.route('/main_page')
+    def main_page():
+        return render_template('main_page.html')
+
     app.run()
 
 
