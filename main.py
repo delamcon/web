@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -21,7 +22,7 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     login = db.Column(db.String(30), nullable=True)
     email = db.Column(db.String(30), index=True, unique=True, nullable=True)
-    password = db.Column(db.String(30), nullable=True)
+    password = db.Column(db.String(100), nullable=True)
     name = db.Column(db.String(30), nullable=True)
     surname = db.Column(db.String(30), nullable=True)
     patronic = db.Column(db.String(30), nullable=True)
