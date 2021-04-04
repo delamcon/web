@@ -52,6 +52,10 @@ def main():
     def authorization():
         return render_template('auth.html')
 
+    @app.route('/registration')
+    def registration():
+        return render_template('reg.html')
+
 
     app.run()
 
