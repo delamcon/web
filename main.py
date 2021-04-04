@@ -20,7 +20,6 @@ class Items(db.Model):
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    login = db.Column(db.String(30), nullable=True)
     email = db.Column(db.String(30), index=True, unique=True, nullable=True)
     password = db.Column(db.String(100), nullable=True)
     name = db.Column(db.String(30), nullable=True)
