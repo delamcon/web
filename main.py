@@ -49,6 +49,11 @@ def main():
     def main_page():
         return render_template('main_page.html')
 
+    @app.route('/authorization')
+    def authorization():
+        return render_template('auth.html')
+
+
     app.run()
 
 
