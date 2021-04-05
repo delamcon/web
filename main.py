@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -39,8 +39,11 @@ class Orders(db.Model):
     comment_of_sender = db.Column(db.String(200), nullable=True)
     status = db.Column(db.String(30), nullable=True)
 
+# вводит в бд данные о новом пользователе
+
 
 def main():
+    global first_reg
     db.create_all()
     
     @app.route('/')
@@ -52,9 +55,33 @@ def main():
     def authorization():
         return render_template('auth.html')
 
-    @app.route('/registration')
+    @app.route('/registration', methods=['POST', 'GET'])
     def registration():
-        return render_template('reg.html')
+        if request.method == 'GET':
+            return render_template('reg.html')
+        elif request.method == 'POST':
+            new_user = Users(name=request.form['name'],
+                            surname=request.form['surname'],
+                            patronic=request.form['patronic'],
+                            phone=request.form['phone'],
+                            email=request.form['email'],
+                            password=generate_password_hash(request.form['password']))
+            
+            try:
+                db.session.add(new_user)
+                db.session.commit()
+                return redirect('/')
+            except Exception as e:
+                return "ОШИБКА"
+        
+        id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+        email = db.Column(db.String(30), index=True, unique=True, nullable=True)
+        password = db.Column(db.String(100), nullable=True)
+        name = db.Column(db.String(30), nullable=True)
+        surname = db.Column(db.String(30), nullable=True)
+        patronic = db.Column(db.String(30), nullable=True)
+        phone = db.Column(db.String(15), nullable=True)
+        bonuses = db.Column(db.Float, nullable=True)
 
 
     app.run()
