@@ -48,16 +48,16 @@ def main():
     @app.route('/')
     @app.route('/main_page')
     def main_page():
-        return render_template('main_page.html')
+        return render_template('main_page.html', title='Главная', css_file='main_page.css')
 
     @app.route('/authorization')
     def authorization():
-        return render_template('auth.html')
+        return render_template('auth.html', title='Авторизация', css_file='signin.css')
 
     @app.route('/registration', methods=['POST', 'GET'])
     def registration():
         if request.method == 'GET':
-            return render_template('reg.html')
+            return render_template('reg.html', title='Регистрация', css_file='signup.css')
         elif request.method == 'POST':
             new_user = Users(name=request.form['name'],
                             surname=request.form['surname'],
@@ -78,6 +78,12 @@ def main():
     def cookie():
         print()
         return redirect('/')
+
+
+    @app.route('/catalog')
+    def catalog():
+        return render_template('catalog.html', title='Каталог', css_file='catalog.css')
+
 
 
     app.run()
