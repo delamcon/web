@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, make_response, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -43,7 +43,6 @@ class Orders(db.Model):
 
 
 def main():
-    global first_reg
     db.create_all()
     
     @app.route('/')
@@ -70,9 +69,15 @@ def main():
             try:
                 db.session.add(new_user)
                 db.session.commit()
+                id = Users.query().filter()
                 return redirect('/')
             except Exception as e:
                 return "ОШИБКА"
+    
+    @app.route('/cookie/')
+    def cookie():
+        print()
+        return redirect('/')
 
 
     app.run()
