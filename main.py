@@ -53,7 +53,7 @@ def main():
 
     @app.route('/authorization')
     def authorization():
-        return render_template('auth.html', title='Авторизация')
+        return render_template('auth.html', title='Авторизация', css_file='signin.css')
 
     @app.route('/registration', methods=['POST', 'GET'])
     def registration():
@@ -77,7 +77,7 @@ def main():
 
     @app.route('/catalog')
     def catalog():
-        return render_template('catalog.html', title='Каталог')
+        return render_template('catalog.html', title='Каталог', css_file='catalog.css')
 
 
 
