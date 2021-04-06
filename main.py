@@ -73,15 +73,6 @@ def main():
                 return redirect('/')
             except Exception as e:
                 return "ОШИБКА"
-        
-        id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-        email = db.Column(db.String(30), index=True, unique=True, nullable=True)
-        password = db.Column(db.String(100), nullable=True)
-        name = db.Column(db.String(30), nullable=True)
-        surname = db.Column(db.String(30), nullable=True)
-        patronic = db.Column(db.String(30), nullable=True)
-        phone = db.Column(db.String(15), nullable=True)
-        bonuses = db.Column(db.Float, nullable=True)
 
 
     app.run()
