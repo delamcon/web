@@ -75,6 +75,12 @@ def main():
                 return "ОШИБКА"
 
 
+    @app.route('/catalog')
+    def catalog():
+        return render_template('catalog.html')
+
+
+
     app.run()
 
 
