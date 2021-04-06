@@ -49,7 +49,7 @@ def main():
     @app.route('/')
     @app.route('/main_page')
     def main_page():
-        return render_template('main_page.html', title='Главная')
+        return render_template('main_page.html', title='Главная', css_file='main_page.css')
 
     @app.route('/authorization')
     def authorization():
@@ -58,7 +58,7 @@ def main():
     @app.route('/registration', methods=['POST', 'GET'])
     def registration():
         if request.method == 'GET':
-            return render_template('reg.html', title='Регистрация')
+            return render_template('reg.html', title='Регистрация', css_file='signup.css')
         elif request.method == 'POST':
             new_user = Users(name=request.form['name'],
                             surname=request.form['surname'],
