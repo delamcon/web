@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request, redirect, make_response, url_for, session
 from flask_sqlalchemy import SQLAlchemy
+import datetime
+import traceback
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/shop.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 db = SQLAlchemy(app)
 
 
@@ -21,7 +24,7 @@ class Items(db.Model):
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(30), index=True, unique=True, nullable=True)
-    password = db.Column(db.String(100), nullable=True)
+    password = db.Column(db.String(150), nullable=True)
     name = db.Column(db.String(30), nullable=True)
     surname = db.Column(db.String(30), nullable=True)
     patronic = db.Column(db.String(30), nullable=True)
@@ -59,32 +62,40 @@ def main():
         if request.method == 'GET':
             return render_template('reg.html', title='Регистрация', css_file='signup.css')
         elif request.method == 'POST':
+            hashed_password = generate_password_hash(request.form['password'])
             new_user = Users(name=request.form['name'],
                             surname=request.form['surname'],
                             patronic=request.form['patronic'],
                             phone=request.form['phone'],
                             email=request.form['email'],
-                            password=generate_password_hash(request.form['password']))
+                            password=hashed_password)
             
             try:
                 db.session.add(new_user)
                 db.session.commit()
-                id = Users.query().filter()
+
+                # получаем данные пользователя, чтобы закинуть в куки
+                user_data = Users.query.filter(Users.email == request.form['email'], 
+                                        Users.password == hashed_password).all()[0]
+                id = user_data.id
+                name = user_data.name
+                session['id'] = id
+                session['name'] = name
                 return redirect('/')
+
             except Exception as e:
+                print(traceback.format_exc())
                 return "ОШИБКА"
     
     @app.route('/cookie/')
     def cookie():
-        print()
+        # session['visits'] = 
         return redirect('/')
 
 
     @app.route('/catalog')
     def catalog():
         return render_template('catalog.html', title='Каталог', css_file='catalog.css')
-
-
 
     app.run()
 

@@ -22,7 +22,11 @@
     <a class="p-2 text-muted" href="#">Support</a>
     <a class="p-2 text-muted" href="./catalog">Каталог</a>
   </nav>
-  <a class="btn btn-outline-secondary" href="./authorization">Вход</a>
+  {% if session['id'] %}
+  <a href="./">{{ session['name'] }}</a>
+  {% else %}
+    <a class="btn btn-outline-secondary" href="./authorization">Вход</a>
+  {% endif %}
 </header>
 
 <main role="main" class="container">
