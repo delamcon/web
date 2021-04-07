@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, make_response, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 import datetime
+import hashlib
 import traceback
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -53,16 +54,32 @@ def main():
     def main_page():
         return render_template('main_page.html', title='Главная', css_file='main_page.css')
 
-    @app.route('/authorization')
+    @app.route('/authorization', methods=['POST', 'GET'])
     def authorization():
-        return render_template('auth.html', title='Авторизация', css_file='signin.css')
+        if request.method == 'GET':
+            return render_template('auth.html', title='Авторизация', css_file='signin.css')
+        elif request.method == 'POST':
+            hashed_password = hashlib.sha256(request.form['password'].encode('utf-8')).hexdigest()
+            try:
+                # получаем данные пользователя, чтобы закинуть в куки
+                user_data = Users.query.filter(Users.email == request.form['email'], 
+                        Users.password == hashed_password).all()
+                id = user_data[0].id
+                name = user_data[0].name
+                session['id'] = id
+                session['name'] = name
+                return redirect('/')
+
+            except Exception as e:
+                print(traceback.format_exc())
+                return "ОШИБКА"
 
     @app.route('/registration', methods=['POST', 'GET'])
     def registration():
         if request.method == 'GET':
             return render_template('reg.html', title='Регистрация', css_file='signup.css')
         elif request.method == 'POST':
-            hashed_password = generate_password_hash(request.form['password'])
+            hashed_password = hashlib.sha256(request.form['password'].encode('utf-8')).hexdigest()
             new_user = Users(name=request.form['name'],
                             surname=request.form['surname'],
                             patronic=request.form['patronic'],
@@ -87,9 +104,10 @@ def main():
                 print(traceback.format_exc())
                 return "ОШИБКА"
     
-    @app.route('/cookie/')
+    @app.route('/clear')
     def cookie():
-        # session['visits'] = 
+        del session['id']
+        del session['name']
         return redirect('/')
 
 
