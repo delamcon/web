@@ -115,7 +115,7 @@ def main():
     def catalog():
         return render_template('catalog.html', title='Каталог', css_file='catalog.css')
 
-    @app.route('personal_info')
+    @app.route('/personal_info')
     def personal_info():
         pass
 
