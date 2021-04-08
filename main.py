@@ -52,12 +52,12 @@ def main():
     @app.route('/')
     @app.route('/main_page')
     def main_page():
-        return render_template('main_page.html', title='Главная', css_file='main_page.css')
+        return render_template('main_page.html', title='Главная', css_file='main_page.css', class_main='container')
 
     @app.route('/authorization', methods=['POST', 'GET'])
     def authorization():
         if request.method == 'GET':
-            return render_template('auth.html', title='Авторизация', css_file='signin.css')
+            return render_template('auth.html', title='Авторизация', css_file='signin.css', class_main='form-signin')
         elif request.method == 'POST':
             hashed_password = hashlib.sha256(request.form['password'].encode('utf-8')).hexdigest()
             try:
@@ -77,7 +77,7 @@ def main():
     @app.route('/registration', methods=['POST', 'GET'])
     def registration():
         if request.method == 'GET':
-            return render_template('reg.html', title='Регистрация', css_file='signup.css')
+            return render_template('reg.html', title='Регистрация', css_file='signup.css', class_main='form-signup')
         elif request.method == 'POST':
             hashed_password = hashlib.sha256(request.form['password'].encode('utf-8')).hexdigest()
             new_user = Users(name=request.form['name'],
@@ -113,11 +113,12 @@ def main():
 
     @app.route('/catalog')
     def catalog():
-        return render_template('catalog.html', title='Каталог', css_file='catalog.css')
+        return render_template('catalog.html', title='Каталог', css_file='catalog.css', class_main='container')
 
     @app.route('/personal_info')
     def personal_info():
-        return render_template('personal_info.html', title='Каталог', css_file='personal_info.css')
+        return render_template('personal_info.html', title='Каталог', css_file='personal_info.css',
+                               class_main='container')
 
     app.run()
 
