@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d7a8799-73dc-4f31-bd41-8c955cf922bc" name="Default Changelist" comment="smth">
+    <list default="true" id="1d7a8799-73dc-4f31-bd41-8c955cf922bc" name="Default Changelist" comment="css sucks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/signin.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/signin.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/auth.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/auth.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
@@ -269,7 +270,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617905731904</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="css sucks">
+      <created>1617906667007</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1617906667007</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -320,6 +328,7 @@
     <MESSAGE value="personal information template1" />
     <MESSAGE value="personal information with checking" />
     <MESSAGE value="smth" />
-    <option name="LAST_COMMIT_MESSAGE" value="smth" />
+    <MESSAGE value="css sucks" />
+    <option name="LAST_COMMIT_MESSAGE" value="css sucks" />
   </component>
 </project>
