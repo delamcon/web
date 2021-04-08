@@ -19,11 +19,15 @@
   <nav class="my-2 my-md-0 me-md-3">
     <a class="p-2 text-muted" href="#">Features</a>
     <a class="p-2 text-muted" href="#">Enterprise</a>
+    {% if session['id'] %}
     <a class="p-2 text-muted" href="./personal_info">Личный кабинет</a>
+    {% else %}
+    <a class="p-2 text-muted" href="./authorization">Личный кабинет</a>
+    {% endif %}
     <a class="p-2 text-muted" href="./catalog">Каталог</a>
   </nav>
   {% if session['id'] %}
-    <a class="btn btn-outline-secondary" href="./">Вход</a>
+    <a class="btn btn-outline-secondary" href="./">Выход</a>
   {% else %}
     <a class="btn btn-outline-secondary" href="./authorization">Вход</a>
   {% endif %}

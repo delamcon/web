@@ -117,7 +117,7 @@ def main():
 
     @app.route('/personal_info')
     def personal_info():
-        pass
+        return render_template('personal_info.html', title='Каталог', css_file='personal_info.css')
 
     app.run()
 
