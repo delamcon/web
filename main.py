@@ -49,6 +49,10 @@ class Orders(db.Model):
 def main():
     db.create_all()
     
+    @app.route('/item')
+    def item():
+        return render_template('catalog.html')
+
     @app.route('/')
     @app.route('/main_page')
     def main_page():
