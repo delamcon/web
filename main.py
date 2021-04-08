@@ -72,7 +72,7 @@ def main():
 
             except Exception as e:
                 print(traceback.format_exc())
-                return "ОШИБКА"
+                return redirect('/registration')
 
     @app.route('/registration', methods=['POST', 'GET'])
     def registration():
