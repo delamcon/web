@@ -51,7 +51,7 @@ def main():
     
     @app.route('/item')
     def item():
-        return render_template('catalog.html')
+        return render_template('item.html')
 
     @app.route('/')
     @app.route('/main_page')
