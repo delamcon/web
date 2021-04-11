@@ -3,9 +3,9 @@ form {
   width: 400px;
   height: 500px;
   margin-top: 100px;
-  margin-right: 500px;
+  margin-right: auto;
   margin-bottom: 500px;
-  margin-left: 700px;
+  margin-left: auto;
   padding: 10px 20px 10px;
   overflow: auto;
   -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
