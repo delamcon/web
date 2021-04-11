@@ -43,7 +43,7 @@ class Orders(db.Model):
     comment_of_sender = db.Column(db.String(200), nullable=True)
     status = db.Column(db.String(30), nullable=True)
     created_date = db.Column(db.DateTime,
-                                     default=datetime.datetime.now)
+                default=datetime.datetime.now)
     item = db.Column(db.String(300), index=True, unique=True, nullable=True)
 
 # вводит в бд данные о новом пользователе

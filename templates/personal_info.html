@@ -6,7 +6,7 @@
 <h5>{{user.name}} {{user.surname}} {{user.patronic}}</h5>
 <p>Почта: {{user.email}}</p>
 <p>Телефон: {{user.phone}}</p>
-<p>Бонусы: {{user.bonuses if item.bonuses else 0}}</p>
+<p>Бонусы: {{user.bonuses if user.bonuses else 0}}</p>
 </div>
 <div>
     <h2>История заказов</h2>
@@ -16,6 +16,7 @@
             <p>Заказ номер {{order.id}}</p>
             <p>Дата заказа: {{order.created_date}}</p>
                 </div>
+        {% endfor %}
     {% else %}
         <h4>История заказов пуста</h4>
     {% endif %}
