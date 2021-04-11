@@ -128,6 +128,11 @@ def main():
         return render_template('personal_info.html', title='Каталог', css_file='personal_info.css',
             class_main='container', user=info_user, orders=info_orders)
 
+    @app.route('/admin85367')
+    def admin():
+        return render_template('admin.html')
+
+
     app.run()
 
 
