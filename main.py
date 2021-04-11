@@ -133,6 +133,11 @@ def main():
         return render_template('admin.html')
 
 
+    @app.route('/admin85367/panel')
+    def panel():
+        return render_template('panel.html')
+
+
     app.run()
 
 

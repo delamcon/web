@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d7a8799-73dc-4f31-bd41-8c955cf922bc" name="Default Changelist" comment="admin template">
-      <change afterPath="$PROJECT_DIR$/templates/admin.html" afterDir="false" />
+    <list default="true" id="1d7a8799-73dc-4f31-bd41-8c955cf922bc" name="Default Changelist" comment="workspace">
+      <change afterPath="$PROJECT_DIR$/templates/panel.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -351,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618148615209</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="workspace">
+      <created>1618148703947</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1618148703947</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -394,7 +401,6 @@
     <MESSAGE value="personal information template1" />
     <MESSAGE value="personal information with checking" />
     <MESSAGE value="css sucks" />
-    <MESSAGE value="workspace" />
     <MESSAGE value="signin and signup css" />
     <MESSAGE value="signin and signup css!" />
     <MESSAGE value="button troubles!" />
@@ -404,6 +410,7 @@
     <MESSAGE value="smth" />
     <MESSAGE value="new button" />
     <MESSAGE value="admin template" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin template" />
+    <MESSAGE value="workspace" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace" />
   </component>
 </project>
