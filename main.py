@@ -114,15 +114,17 @@ def main():
         del session['name']
         return redirect('/')
 
-
     @app.route('/catalog')
     def catalog():
         return render_template('catalog.html', title='Каталог', css_file='catalog.css', class_main='container')
 
     @app.route('/personal_info')
     def personal_info():
+        print(int(session['id']))
+        info = Users.query.filter(Users.id == int(session['id'])).all()[0]
+        print(info)
         return render_template('personal_info.html', title='Каталог', css_file='personal_info.css',
-                               class_main='container')
+            class_main='container', item=info)
 
     app.run()
 

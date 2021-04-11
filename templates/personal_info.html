@@ -1,4 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h1>Личный кабинет</h1>
+<h5>{{item.name}} {{item.surname}} {{item.patronic}}</h5>
+<p>Почта: {{item.email}}</p>
+<p>Телефон: {{item.phone}}</p>
+<p>Бонусы: {{item.bonuses if item.bonuses else 0}}</p>
+
 {% endblock %}
