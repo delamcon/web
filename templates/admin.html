@@ -1,4 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
+<form method="post" class="text-center">
+    <h1 class="h3 mb-3 fw-normal">админка</h1>
+    <label for="inputEmail" class="visually-hidden">login</label>
+        <input name="login" class="form-control" placeholder="Login" required autofocus>
+    <label for="inputPassword" class="visually-hidden">password</label>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
+    <button class="w-100 btn btn-outline-dark" type="submit">Войти</button>
+</form>
+
 {% endblock %}

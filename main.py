@@ -9,9 +9,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/shop.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
+app.config['PERimport hashlibMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 db = SQLAlchemy(app)
 
+ADMIN_PASSWORD = '6470c92fb4087b7cdb017342bf68c7cdd21a84317dd10aa5d8faa1e7b2800c54'
+ADMIN_LOGIN = 'admin1984'
 
 class Items(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -113,8 +115,8 @@ def main():
     
     @app.route('/clear')
     def cookie():
-        del session['id']
-        del session['name']
+        for key in list(session.keys()):
+            del session[key]
         return redirect('/')
 
     @app.route('/catalog')
@@ -128,14 +130,25 @@ def main():
         return render_template('personal_info.html', title='Каталог', css_file='personal_info.css',
             class_main='container', user=info_user, orders=info_orders)
 
-    @app.route('/admin85367')
+    @app.route('/admin85367', methods=['POST', 'GET'])
     def admin():
-        return render_template('admin.html')
+        if request.method == 'GET':
+            return render_template('admin.html', css_file='signin.css')
+        elif request.method == 'POST':
+            password = hashlib.sha256(request.form['password'].encode('utf-8')).hexdigest()
+            if password == ADMIN_PASSWORD and request.form['login'] == ADMIN_LOGIN:
+                session['admin'] = '4891nimda'
+                return redirect('/admin85367/panel')
+            else:
+                return redirect('/admin85367')
 
-
-    @app.route('/admin85367/panel')
+    @app.route('/admin85367/panel', methods=['POST', 'GET'])
     def panel():
-        return render_template('panel.html')
+        if request.method == 'GET':
+            if 'admin' in session.keys() and session['admin'] == '4891nimda':
+                return render_template('panel.html')
+            else:
+                return redirect('/admin85367')
 
 
     app.run()

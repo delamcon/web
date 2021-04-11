@@ -2,16 +2,10 @@
 {% block content %}
   <form method="post" class="text-center">
     <h1 class="h3 mb-3 fw-normal">Авторизация</h1>
-    <label for="inputEmail" class="visually-hidden">Email</label>
+    <label for="inputEmail" class="visually-hidden">login</label>
       <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
     <label for="inputPassword" class="visually-hidden">password</label>
       <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
-    <div class="checkbox mb-3">
-      <label>
-        <input name="remember" type="checkbox" value="remember-me"> Запомнить меня
-      </label>
-    </div>
     <button class="w-100 btn btn-outline-dark" type="submit">Войти</button>
-    <a class="w-100 btn btn-outline-dark" href="./registration">Зарегистрироваться</a>
   </form>
 {% endblock %}
