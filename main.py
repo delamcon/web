@@ -42,6 +42,9 @@ class Orders(db.Model):
     comment_of_user = db.Column(db.String(200), nullable=True)
     comment_of_sender = db.Column(db.String(200), nullable=True)
     status = db.Column(db.String(30), nullable=True)
+    created_date = db.Column(db.DateTime,
+                                     default=datetime.datetime.now)
+    item = db.Column(db.String(300), index=True, unique=True, nullable=True)
 
 # вводит в бд данные о новом пользователе
 
@@ -120,9 +123,10 @@ def main():
 
     @app.route('/personal_info')
     def personal_info():
-        info = Users.query.filter(Users.id == int(session['id'])).all()[0]
+        info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
+        info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
         return render_template('personal_info.html', title='Каталог', css_file='personal_info.css',
-            class_main='container', item=info)
+            class_main='container', user=info_user, orders=info_orders)
 
     app.run()
 
