@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d7a8799-73dc-4f31-bd41-8c955cf922bc" name="Default Changelist" comment="workspace">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="1d7a8799-73dc-4f31-bd41-8c955cf922bc" name="Default Changelist" comment="signin and signup css!">
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/signin.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/signin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/signup.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/signup.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,7 +288,21 @@
       <option name="project" value="LOCAL" />
       <updated>1618142672469</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="signin and signup css">
+      <created>1618144521171</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1618144521171</updated>
+    </task>
+    <task id="LOCAL-00029" summary="signin and signup css!">
+      <created>1618144534281</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1618144534282</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -317,8 +330,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="check" />
-    <MESSAGE value="data bases all" />
     <MESSAGE value="main page template" />
     <MESSAGE value="without errors" />
     <MESSAGE value="временный шаблон дезигна главной страницы!" />
@@ -342,6 +353,8 @@
     <MESSAGE value="smth" />
     <MESSAGE value="css sucks" />
     <MESSAGE value="workspace" />
-    <option name="LAST_COMMIT_MESSAGE" value="workspace" />
+    <MESSAGE value="signin and signup css" />
+    <MESSAGE value="signin and signup css!" />
+    <option name="LAST_COMMIT_MESSAGE" value="signin and signup css!" />
   </component>
 </project>
