@@ -95,7 +95,7 @@ def main():
                             phone=request.form['phone'],
                             email=request.form['email'],
                             password=hashed_password)
-            
+
             try:
                 db.session.add(new_user)
                 db.session.commit()
@@ -133,7 +133,7 @@ def main():
     @app.route('/admin85367', methods=['POST', 'GET'])
     def admin():
         if request.method == 'GET':
-            return render_template('admin.html', css_file='signin.css')
+            return render_template('admin.html', css_file='signin.css', title='Админка туту')
         elif request.method == 'POST':
             password = hashlib.sha256(request.form['password'].encode('utf-8')).hexdigest()
             if password == ADMIN_PASSWORD and request.form['login'] == ADMIN_LOGIN:
@@ -146,15 +146,16 @@ def main():
     def panel():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':
-                return render_template('panel.html')
+                return render_template('panel.html', title='Панель')
             else:
                 return redirect('/admin85367')
+
 
     @app.route('/admin85367/panel/add_item', methods=['POST', 'GET'])
     def add_item():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':
-                return render_template('add_item.html')
+                return render_template('add_item.html', title='Добавить товар')
             else:
                 return redirect('/admin85367')
         elif request.method == 'POST':
