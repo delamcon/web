@@ -159,6 +159,7 @@ def main():
             else:
                 return redirect('/admin85367')
         elif request.method == 'POST':
+            print(request.form['photo_url'])
             try:
                 new_item = Items(name=request.form['name'],
                                  description=request.form['description'],
