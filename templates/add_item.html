@@ -1,4 +1,19 @@
 {% extends "admin_base.html" %}
 {% block content %}
-
+<h3 class="text-dark">Добавление товара в каталог</h3>
+<form class="add_item" method="post">
+    <label for="inputName" class="visually-hidden">name</label>
+        <input name="name" type="text" id="inputName" class="form-control" placeholder="Название товара" required>
+    <label for="inputDescription" class="visually-hidden">description</label>
+        <input name="description" type="text" id="inputDescription" class="form-control"
+               placeholder="Описание товара" required>
+    <label for="inputPrice" class="visually-hidden">price</label>
+        <input name="price" type="text" id="inputPrice" class="form-control" placeholder="Цена(руб)">
+    <label for="inputPhone" class="visually-hidden">count</label>
+        <input name="phone" type="text" id="inputPhone" class="form-control" placeholder="Количество на складе"
+               required>
+    <label for="inputPhoto">Фото товара</label>
+    <input type="file" class="form-control-file" id="InputPhoto" name="photo_url">
+     <button class="w-100 btn btn-outline-dark" type="submit">Добавить товар</button>
+</form>
 {% endblock %}

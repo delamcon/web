@@ -155,11 +155,22 @@ def main():
     def add_item():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':
-                return render_template('add_item.html', title='Добавить товар')
+                return render_template('add_item.html', title='Добавить товар', css_file='add_item.css')
             else:
                 return redirect('/admin85367')
         elif request.method == 'POST':
-            pass
+            try:
+                new_item = Items(name=request.form['name'],
+                                 description=request.form['description'],
+                                 price=int(request.form['price']),
+                                 count=int(request.form['count']),
+                                 photo_url=request.form['photo_url'])
+                db.session.add(new_item)
+                db.session.commit()
+
+            except Exception as e:
+                print(traceback.format_exc())
+                return "ОШИБКА"
 
 
     app.run()
