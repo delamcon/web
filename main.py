@@ -150,6 +150,16 @@ def main():
             else:
                 return redirect('/admin85367')
 
+    @app.route('/admin85367/panel/add_item', methods=['POST', 'GET'])
+    def add_item():
+        if request.method == 'GET':
+            if 'admin' in session.keys() and session['admin'] == '4891nimda':
+                return render_template('add_item.html')
+            else:
+                return redirect('/admin85367')
+        elif request.method == 'POST':
+            pass
+
 
     app.run()
 

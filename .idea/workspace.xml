@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d7a8799-73dc-4f31-bd41-8c955cf922bc" name="Default Changelist" comment="workspace" />
+    <list default="true" id="1d7a8799-73dc-4f31-bd41-8c955cf922bc" name="Default Changelist" comment="admin_base template">
+      <change afterPath="$PROJECT_DIR$/templates/add_item.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -369,7 +372,21 @@
       <option name="project" value="LOCAL" />
       <updated>1618150898935</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="workspace">
+      <created>1618323857178</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1618323857178</updated>
+    </task>
+    <task id="LOCAL-00041" summary="admin_base template">
+      <created>1618323959641</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1618323959641</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -397,7 +414,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="authorization page" />
     <MESSAGE value="authorization page and new database" />
     <MESSAGE value="registration template" />
     <MESSAGE value="registration template without css" />
@@ -422,6 +438,7 @@
     <MESSAGE value="admin template" />
     <MESSAGE value="admin panel template" />
     <MESSAGE value="workspace" />
-    <option name="LAST_COMMIT_MESSAGE" value="workspace" />
+    <MESSAGE value="admin_base template" />
+    <option name="LAST_COMMIT_MESSAGE" value="admin_base template" />
   </component>
 </project>
