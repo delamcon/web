@@ -3,10 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 import hashlib
 import traceback
-from werkzeug.security import generate_password_hash, check_password_hash
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['UPLOAD_FOLDER'] = 'static/img'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/shop.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['PERimport hashlibMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
@@ -150,7 +152,6 @@ def main():
             else:
                 return redirect('/admin85367')
 
-
     @app.route('/admin85367/panel/add_item', methods=['POST', 'GET'])
     def add_item():
         if request.method == 'GET':
@@ -159,15 +160,18 @@ def main():
             else:
                 return redirect('/admin85367')
         elif request.method == 'POST':
-            print(request.form['photo_url'])
             try:
-                new_item = Items(name=request.form['name'],
-                                 description=request.form['description'],
-                                 price=int(request.form['price']),
-                                 count=int(request.form['count']),
-                                 photo_url=request.form['photo_url'])
-                db.session.add(new_item)
-                db.session.commit()
+                photo = request.files['photo_url']
+                filename = secure_filename(photo.filename)
+                photo.save(f'{app.config["UPLOAD_FOLDER"]}/{filename}')
+                # new_item = Items(name=request.form['name'],
+                #                  description=request.form['description'],
+                #                  price=int(request.form['price']),
+                #                  count=int(request.form['count']),
+                #                  )
+                # db.session.add(new_item)
+                # db.session.commit()
+                return 'asd'
 
             except Exception as e:
                 print(traceback.format_exc())

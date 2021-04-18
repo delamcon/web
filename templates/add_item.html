@@ -1,7 +1,7 @@
 {% extends "admin_base.html" %}
 {% block content %}
 <h3 class="text-dark">Добавление товара в каталог</h3>
-<form class="add_item" method="post">
+<form class="add_item" method="post" enctype="multipart/form-data">
     <label for="inputName" class="visually-hidden">name</label>
         <input name="name" type="text" id="inputName" class="form-control" placeholder="Название товара" required>
     <label for="inputDescription">Описание товара</label>
@@ -15,7 +15,7 @@
         <input name="phone" type="text" id="inputPhone" class="form-control" placeholder="Количество на складе"
                required>
     <label for="inputPhoto">Фото товара</label>
-    <input type="file" class="form-control-file" id="InputPhoto" name="photo_url">
+    <input name="photo_url" type="file" class="form-control-file" id="InputPhoto">
      <button class="w-100 btn btn-outline-dark" type="submit">Добавить товар</button>
 </form>
 {% endblock %}
