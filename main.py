@@ -155,7 +155,7 @@ def main():
     def add_item():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':
-                return render_template('add_item.html', title='Добавить товар', css_file='add_item.css')
+                return render_template('add_item.html', css_file='add_item.css', title='Добавить товар')
             else:
                 return redirect('/admin85367')
         elif request.method == 'POST':
