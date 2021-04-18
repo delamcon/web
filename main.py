@@ -123,7 +123,9 @@ def main():
 
     @app.route('/catalog')
     def catalog():
-        return render_template('catalog.html', title='Каталог', css_file='catalog.css', class_main='container')
+        items = Items.query.all()
+        return render_template('catalog.html', title='Каталог', css_file='catalog.css', class_main='container',
+                               items=items)
 
     @app.route('/personal_info')
     def personal_info():
