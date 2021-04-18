@@ -164,13 +164,13 @@ def main():
                 photo = request.files['photo_url']
                 filename = secure_filename(photo.filename)
                 photo.save(f'{app.config["UPLOAD_FOLDER"]}/{filename}')
-                # new_item = Items(name=request.form['name'],
-                #                  description=request.form['description'],
-                #                  price=int(request.form['price']),
-                #                  count=int(request.form['count']),
-                #                  )
-                # db.session.add(new_item)
-                # db.session.commit()
+                new_item = Items(name=request.form['name'],
+                                  description=request.form['description'],
+                                  price=int(request.form['price']),
+                                  count=int(request.form['count']),
+                                  )
+                db.session.add(new_item)
+                db.session.commit()
                 return 'asd'
 
             except Exception as e:
