@@ -1,3 +1,11 @@
+h3 {
+  text-align: center;
+}
+
+body {
+  background-color: lightgrey;
+  }
+
 form {
   position: relative;
   width: 400px;
