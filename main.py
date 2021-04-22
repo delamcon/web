@@ -56,8 +56,9 @@ class Orders(db.Model):
 def main():
     db.create_all()
     
-    @app.route('/item')
-    def item():
+    @app.route('/item/<id>')
+    def item(id):
+        items = Items.query.filter(Items.id == id).all()
         return render_template('item.html')
 
     @app.route('/')
@@ -180,14 +181,12 @@ def main():
                 print(traceback.format_exc())
                 return "ОШИБКА"
 
-
     @app.route('/cart')
     def cart():
         info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
         info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
         return render_template('cart.html', title='Корзина', css_file='cart.css',
                                class_main='container', user=info_user, orders=info_orders)
-
 
     @app.route('/admin85367/panel/delete_item', methods=['POST', 'GET'])
     def delete_item():

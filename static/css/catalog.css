@@ -12,6 +12,14 @@ body {
         user-select: none;
       }
 
+.bd-placeholder-img-c {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
 h1 {
   text-align: center;
 }
