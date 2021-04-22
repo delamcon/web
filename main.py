@@ -193,7 +193,9 @@ def main():
     def delete_item():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':
-                return render_template('delete_item.html', css_file='delete_item.css', title='Удалить товар')
+                info_items = Items.query.all()
+                return render_template('delete_item.html', css_file='delete_item.css', title='Удалить товар',
+                                       info_items=info_items)
             else:
                 return redirect('/admin85367')
 
