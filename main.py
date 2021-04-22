@@ -189,6 +189,16 @@ def main():
                                class_main='container', user=info_user, orders=info_orders)
 
 
+    @app.route('/admin85367/panel/delete_item', methods=['POST', 'GET'])
+    def delete_item():
+        if request.method == 'GET':
+            if 'admin' in session.keys() and session['admin'] == '4891nimda':
+                return render_template('delete_item.html', css_file='delete_item.css', title='Удалить товар')
+            else:
+                return redirect('/admin85367')
+
+
+
 
     app.run()
 
