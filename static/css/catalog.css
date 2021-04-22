@@ -1,3 +1,17 @@
 body {
   background-color: lightgrey;
   }
+
+.bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        height: 500px;
+        weight: 2000px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+h3 {
+  text-align: center;
+}
