@@ -131,7 +131,7 @@ def main():
     def personal_info():
         info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
         info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
-        return render_template('personal_info.html', title='Каталог', css_file='personal_info.css',
+        return render_template('personal_info.html', title='Личный кабинет', css_file='personal_info.css',
             class_main='container', user=info_user, orders=info_orders)
 
     @app.route('/admin85367', methods=['POST', 'GET'])
@@ -179,6 +179,15 @@ def main():
             except Exception as e:
                 print(traceback.format_exc())
                 return "ОШИБКА"
+
+
+    @app.route('/cart')
+    def cart():
+        info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
+        info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
+        return render_template('cart.html', title='Корзина', css_file='cart.css',
+                               class_main='container', user=info_user, orders=info_orders)
+
 
 
     app.run()
