@@ -150,7 +150,7 @@ def main():
     def panel():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':
-                return render_template('panel.html', title='Панель')
+                return render_template('panel.html', title='Панель', css_file='panel.css')
             else:
                 return redirect('/admin85367')
 
