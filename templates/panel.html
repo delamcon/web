@@ -7,7 +7,9 @@
     {% for i in session['basket'].split(';') %}
         <img src="/{{ Items.query.filter(Items.id == i).all()[0].photo_url }}" width="140px" height="140px">
         <br>
-        <a>{{ Items.query.filter(Items.id == i).all()[0].name }}</a>
+        <a>цена: {{ Items.query.filter(Items.id == i).all()[0].price }}</a>
+        <br>
+        <a>название: {{ Items.query.filter(Items.id == i).all()[0].name }}</a>
     {% endfor %}
     <br><br>
     <a>{{ order.email }}</a><br>
