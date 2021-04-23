@@ -41,7 +41,7 @@ class Orders(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     id_of_user = db.Column(db.Integer,  db.ForeignKey("users.id"))
     address = db.Column(db.String(200), nullable=True)
-    email = db.Column(db.String(30), index=True, unique=True, nullable=True)
+    email = db.Column(db.String(30), index=True, nullable=True)
     track_num = db.Column(db.String(30), nullable=True)
     comment_of_user = db.Column(db.String(200), nullable=True)
     comment_of_sender = db.Column(db.String(200), nullable=True)
@@ -62,12 +62,13 @@ def main():
             item = Items.query.filter(Items.id == id).all()[0]
             return render_template('item.html', item=item)
         elif request.method == 'POST':
-            
             try:
                 if session['id']:
                     try:
                         if session['basket']:
                             session['basket'] = ';'.join(session['basket'].split(';').append(str(id)))
+                        else:
+                            session['basket'] = str(id)
                     except Exception:
                         session['basket'] = str(id)
                 print(session['basket'])
@@ -196,7 +197,7 @@ def main():
                                  photo_url=photo_path)
                 db.session.add(new_item)
                 db.session.commit()
-                return 'asd'
+                return redirect('/admin85367/panel')
 
             except Exception as e:
                 print(traceback.format_exc())

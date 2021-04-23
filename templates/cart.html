@@ -5,7 +5,7 @@
     <a>id: {{ i }}<a>
 {% endfor %}
 
-{% if session['id'] %}
+{% if session['id'] and session['basket'] %}
 <form method="post">
 <button class="w-100 btn btn-outline-dark" type="submit">Оформить заказ</button>
 </form>
