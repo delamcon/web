@@ -2,6 +2,7 @@
 {% block content %}
 
 <h2>Заказы</h2>
+
 {% for order in orders %}
 <div>
     {% for i in session['basket'].split(';') %}

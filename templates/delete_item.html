@@ -2,4 +2,24 @@
 {% block content %}
 <h3>Удалить товар</h3>
 
+<form method="post">
+<div class="row">
+    {% for item in info_items %}
+        <div class="col-lg-4">
+            <img class="bd-placeholder-img-c" src="/{{ item.photo_url }}" width="140px" height="140px">
+            <br>
+            <a>название: {{ item.name }}</a>
+            <br>
+            <a>название: {{ item.name }}</a>
+            <br>
+            <a>цена: {{ item.price }}</a>
+            <br>
+            <a>{{ item.count }}</a>
+            <br>
+            <input type="hidden" name="id", value="{{ item.id }}" >
+            <button class="w-30 btn btn-outline-dark" type="submit">Удалить</button>
+        </div>
+    {% endfor %}
+</div>
+</form>
 {% endblock %}

@@ -237,6 +237,11 @@ def main():
                                        info_items=info_items)
             else:
                 return redirect('/admin85367')
+        elif request.method == 'POST':
+            print(request.form['id'])
+            db.session.delete(Items.query.filter(Items.id == int(request.form['id'])).all()[0])
+            db.session.commit()
+            return redirect('/admin85367/panel/delete_item')
 
     app.run()
 
