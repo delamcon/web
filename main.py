@@ -78,6 +78,11 @@ def main():
     @app.route('/')
     @app.route('/main_page')
     def main_page():
+        try:
+            if session['basket']:
+                pass
+        except Exception:
+            session['basket'] = ""
         return render_template('main_page.html', title='Главная', css_file='main_page.css', class_main='container')
 
     @app.route('/authorization', methods=['POST', 'GET'])
