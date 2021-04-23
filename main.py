@@ -56,10 +56,24 @@ class Orders(db.Model):
 def main():
     db.create_all()
     
-    @app.route('/item/<id>')
+    @app.route('/item/<id>', methods=['POST', 'GET'])
     def item(id):
-        items = Items.query.filter(Items.id == id).all()
-        return render_template('item.html')
+        if request.method == 'GET':
+            item = Items.query.filter(Items.id == id).all()[0]
+            return render_template('item.html', item=item)
+        elif request.method == 'POST':
+            
+            try:
+                if session['id']:
+                    try:
+                        if session['basket']:
+                            session['basket'] = ';'.join(session['basket'].split(';').append(str(id)))
+                    except Exception:
+                        session['basket'] = str(id)
+                print(session['basket'])
+                return redirect('/catalog')
+            except Exception:
+                return redirect('/authorization')
 
     @app.route('/')
     @app.route('/main_page')
@@ -151,7 +165,9 @@ def main():
     def panel():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':
-                return render_template('panel.html', title='Панель', css_file='panel.css')
+                orders = Orders.query.all()
+                return render_template('panel.html', title='Панель', 
+                                        css_file='panel.css', orders=orders)
             else:
                 return redirect('/admin85367')
 
@@ -181,12 +197,30 @@ def main():
                 print(traceback.format_exc())
                 return "ОШИБКА"
 
-    @app.route('/cart')
+    @app.route('/cart', methods=['POST', 'GET'])
     def cart():
-        info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
-        info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
-        return render_template('cart.html', title='Корзина', css_file='cart.css',
-                               class_main='container', user=info_user, orders=info_orders)
+        if request.method == 'GET':
+            info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
+            info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
+            return render_template('cart.html', title='Корзина', css_file='cart.css',
+                                class_main='container', user=info_user, orders=info_orders)
+        elif request.method == "POST":
+            for i in session['basket'].split(';'):
+                user_data = Users.query.filter(Users.id == session['id']).all()[0]
+                new_order = Orders(item=i,
+                                id_of_user=session['id'],
+                                email=user_data.email,
+                                created_date=datetime.datetime.now())
+
+                try:
+                    db.session.add(new_order)
+                    db.session.commit()
+                    
+                    return redirect('/')
+
+                except Exception as e:
+                    print(traceback.format_exc())
+                    return "ОШИБКА"
 
     @app.route('/admin85367/panel/delete_item', methods=['POST', 'GET'])
     def delete_item():
@@ -197,9 +231,6 @@ def main():
                                        info_items=info_items)
             else:
                 return redirect('/admin85367')
-
-
-
 
     app.run()
 

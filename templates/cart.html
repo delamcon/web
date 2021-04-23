@@ -1,4 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% for i in session['basket'] %}
+    <a>id: {{ i }}<a>
+{% endfor %}
+
+{% if session['id'] %}
+<form method="post">
+<button class="w-100 btn btn-outline-dark" type="submit">Оформить заказ</button>
+</form>
+{% endif %}
+
 {% endblock %}
