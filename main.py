@@ -48,7 +48,7 @@ class Orders(db.Model):
     status = db.Column(db.String(30), nullable=True)
     created_date = db.Column(db.DateTime,
                 default=datetime.datetime.now)
-    item = db.Column(db.String(300), index=True, unique=True, nullable=True)
+    item = db.Column(db.String(300), index=True, nullable=True)
 
 # вводит в бд данные о новом пользователе
 
