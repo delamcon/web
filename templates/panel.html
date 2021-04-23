@@ -4,7 +4,13 @@
 <h2>Заказы</h2>
 {% for order in orders %}
 <div>
-    <a>{{ order.email }}</a>
+    {% for i in session['basket'].split(';') %}
+        <img src="/{{ Items.query.filter(Items.id == i).all()[0].photo_url }}" width="140px" height="140px">
+        <br>
+        <a>{{ Items.query.filter(Items.id == i).all()[0].name }}</a>
+    {% endfor %}
+    <br><br>
+    <a>{{ order.email }}</a><br>
     <a>{{ order.created_date }}</a>
 </div>
 {% endfor %}

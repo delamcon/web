@@ -167,7 +167,7 @@ def main():
             if 'admin' in session.keys() and session['admin'] == '4891nimda':
                 orders = Orders.query.all()
                 return render_template('panel.html', title='Панель', 
-                                        css_file='panel.css', orders=orders)
+                                        css_file='panel.css', orders=orders, Items=Items)
             else:
                 return redirect('/admin85367')
 
