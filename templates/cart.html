@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% for i in session['basket'] %}
-    <a>id: {{ i }}<a>
+{% for i in session['basket'].split(';') %}
+    <img src="/{{ Items.query.filter(Items.id == i).all()[0].photo_url }}" width="140px" height="140px">
+    <br>
+    <a>цена: {{ Items.query.filter(Items.id == i).all()[0].price }}</a>
+    <br>
+    <a>название: {{ Items.query.filter(Items.id == i).all()[0].name }}</a>
 {% endfor %}
 
 {% if session['id'] and session['basket'] %}

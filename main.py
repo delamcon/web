@@ -209,7 +209,7 @@ def main():
             info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
             info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
             return render_template('cart.html', title='Корзина', css_file='cart.css',
-                                class_main='container', user=info_user, orders=info_orders)
+                                class_main='container', user=info_user, orders=info_orders, Items=Items)
         elif request.method == "POST":
             for i in session['basket'].split(';'):
                 user_data = Users.query.filter(Users.id == session['id']).all()[0]
