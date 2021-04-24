@@ -3,6 +3,7 @@ body {
   }
 
 .bd-placeholder-img {
+        margin: center;
         font-size: 1.125rem;
         text-anchor: middle;
         height: 500px;
