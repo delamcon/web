@@ -1,16 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 
+<form method="post">
 {% for i in session['basket'].split(';') %}
-    <img src="/{{ Items.query.filter(Items.id == i).all()[0].photo_url }}" width="140px" height="140px">
-    <br>
-    <a>цена: {{ Items.query.filter(Items.id == i).all()[0].price }}</a>
-    <br>
-    <a>название: {{ Items.query.filter(Items.id == i).all()[0].name }}</a>
+    {% if i != '' %}
+        <img src="/{{ Items.query.filter(Items.id == i).all()[0].photo_url }}" width="140px" height="140px">
+        <br>
+        <a>цена: {{ Items.query.filter(Items.id == i).all()[0].price }}</a>
+        <br>
+        <a>название: {{ Items.query.filter(Items.id == i).all()[0].name }}</a>
+        <input type="hidden" name="id", value="{{ Items.query.filter(Items.id == i).all()[0].id }}" >
+        <button class="w-30 btn btn-outline-dark" type="submit">Удалить</button>
+    {% endif %}
 {% endfor %}
+</form>
 
 {% if session['id'] and session['basket'] %}
 <form method="post">
+<input type="hidden" name="submit", value="delete" >
 <button class="w-100 btn btn-outline-dark" type="submit">Оформить заказ</button>
 </form>
 {% endif %}
