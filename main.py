@@ -211,22 +211,28 @@ def main():
             return render_template('cart.html', title='Корзина', css_file='cart.css',
                                 class_main='container', user=info_user, orders=info_orders, Items=Items)
         elif request.method == "POST":
-            for i in session['basket'].split(';'):
-                user_data = Users.query.filter(Users.id == session['id']).all()[0]
-                new_order = Orders(item=i,
-                                id_of_user=session['id'],
-                                email=user_data.email,
-                                created_date=datetime.datetime.now())
+            if 'submit' in request.form:
+                for i in session['basket'].split(';'):
+                    user_data = Users.query.filter(Users.id == session['id']).all()[0]
+                    new_order = Orders(item=i,
+                                    id_of_user=session['id'],
+                                    email=user_data.email,
+                                    created_date=datetime.datetime.now())
 
-                try:
-                    db.session.add(new_order)
-                    db.session.commit()
-                    
-                    return redirect('/')
+                    try:
+                        db.session.add(new_order)
+                        db.session.commit()
+                        
+                        return redirect('/')
 
-                except Exception as e:
-                    print(traceback.format_exc())
-                    return "ОШИБКА"
+                    except Exception as e:
+                        print(traceback.format_exc())
+                        return "ОШИБКА"
+            elif 'id' in request.form:
+                ses = session['basket'].split(';')
+                del ses[ses.index(request.form['id'])]
+                session['basket'] = ';'.join(ses)
+                return redirect('/cart')
 
     @app.route('/admin85367/panel/delete_item', methods=['POST', 'GET'])
     def delete_item():
