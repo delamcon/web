@@ -211,11 +211,10 @@ def main():
         if request.method == 'GET':
             if session['id']:
                 info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
-                order = Orders.query.filter(Orders.id_of_user == int(session['id']) and 
-                                            Orders.item == session['basket']).all()[0]
+                # order = Orders.query.filter(Orders.id_of_user == int(session['id']) and 
+                #                             Orders.item == session['basket']).all()[0]
                 return render_template('cart.html', title='Корзина', css_file='cart.css',
-                                    class_main='container', Items=Items, Users=Users,
-                                    order=order)
+                                    class_main='container', Items=Items, Users=Users)
             else:
                 return redirect('/authorization')
         elif request.method == "POST":
