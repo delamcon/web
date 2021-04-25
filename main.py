@@ -209,12 +209,15 @@ def main():
     @app.route('/cart', methods=['POST', 'GET'])  # корзина пользователя
     def cart():
         if request.method == 'GET':
-            info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
-            order = Orders.query.filter(Orders.id_of_user == int(session['id']) and 
-                                        Orders.item == session['basket']).all()[0]
-            return render_template('cart.html', title='Корзина', css_file='cart.css',
-                                class_main='container', Items=Items, Users=Users,
-                                order=order)
+            if session['id']:
+                info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
+                order = Orders.query.filter(Orders.id_of_user == int(session['id']) and 
+                                            Orders.item == session['basket']).all()[0]
+                return render_template('cart.html', title='Корзина', css_file='cart.css',
+                                    class_main='container', Items=Items, Users=Users,
+                                    order=order)
+            else:
+                return redirect('/authorization')
         elif request.method == "POST":
             if 'submit' in request.form:
                 user_data = Users.query.filter(Users.id == session['id']).all()[0]
