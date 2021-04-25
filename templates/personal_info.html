@@ -9,20 +9,20 @@
 <p>Бонусы: {{ user.bonuses if user.bonuses else 0 }}</p>
 </div>
 <div>
-{% if order_count %}
+{% if orders %}
     <h2>История заказов</h2>
-    {% for order in info_orders%}
+    {% for order in orders%}
         <div class="orders info">
             {% for item in order.item.split(';') %}
-                <img src="/{{ Items.query.fiter(Items.id == item).all()[0].photo_url }}">
-                <p>{{ Items.query.fiter(Items.id == item).all()[0].name }}</p>
-                <p>{{ Items.query.fiter(Items.id == item).all()[0].price }}</p>
+                <img src="/{{ Items.query.filter(Items.id == item).all()[0].photo_url }}" width="200px" height="200px"><br>
+                <a>{{ Items.query.filter(Items.id == item).all()[0].name }}</a><br>
+                <a>{{ Items.query.filter(Items.id == item).all()[0].price }}</a><br>
             {% endfor %}
-        <p>Номер заказа: {{order.id}}</p>
-        <p>Дата заказа: {{order.created_date}}</p>
-        <p>Адрес: {{order.created_date}}</p>
-        <p>Ваш комментарий: {{order.created_date}}</p>
-        <p>Статус заказа: {{order.created_date}}</p>
+        <a>Номер заказа: {{order.id}}</a><br>
+        <a>Дата заказа: {{order.created_date}}</a><br>
+        <a>Адрес: {{order.address}}</a><br>
+        <a>Ваш комментарий: {{order.comment_of_user}}</a><br>
+        <a>Статус заказа: {{order.status}}</a><br>
         </div>
     {% endfor %}
 {% else %}

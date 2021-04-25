@@ -156,7 +156,7 @@ def main():
         print(len(info_orders))
         return render_template('personal_info.html', title='Личный кабинет', css_file='personal_info.css',
             class_main='container', user=info_user, orders=info_orders, 
-            Users=Users, Items=Items, order_count=(len(info_orders) > 0))
+            Users=Users, Items=Items)
 
     @app.route('/admin85367', methods=['POST', 'GET'])  # админка
     def admin():
