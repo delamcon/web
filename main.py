@@ -222,7 +222,7 @@ def main():
                         db.session.add(new_order)
                         db.session.commit()
                         
-                        return redirect('/')
+                        return redirect('/cart/new_order')
 
                     except Exception as e:
                         print(traceback.format_exc())
@@ -232,6 +232,14 @@ def main():
                 del ses[ses.index(request.form['id'])]
                 session['basket'] = ';'.join(ses)
                 return redirect('/cart')
+
+
+    @app.route('/cart/new_order', methods=['POST, GET'])
+    def new_order:
+
+        return render_template('new_order.html', title=f'Заказ №{}', css_file='new_order.css',
+                               class_main='container', user=info_user, orders=info_orders, Items=Items)
+
 
     @app.route('/admin85367/panel/delete_item', methods=['POST', 'GET'])
     def delete_item():
