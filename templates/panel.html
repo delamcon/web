@@ -2,7 +2,7 @@
 {% block content %}
 
 <h2>Заказы</h2>
-
+{% if orders %}
 {% for order in orders %}
 <div>
     {% for i in order.item %}
@@ -17,5 +17,8 @@
     <a>{{ order.created_date }}</a>
 </div>
 {% endfor %}
+{% else %}
+<h3>История заказов пуста</h3>
+{% endif %}
 
 {% endblock %}

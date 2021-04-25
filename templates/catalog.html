@@ -58,8 +58,8 @@
 {% for item in items %}
   <div class="col-lg-4">
     <img class="bd-placeholder-img-c" src="{{ item.photo_url }}" width="140" height="140" aria-label="Placeholder: 140x140">
-    <h2>{{ item.name }}</h2>
-    <p>{{ item.price }}</p>
+    <h4>{{ item.name }}</h4>
+    <p>{{ item.price }} рублей</p>
     <p><a class="btn btn-secondary" href="item/{{ item.id }}">Подробнее</a></p>
   </div><!-- /.col-lg-4 -->
 {% endfor %}
