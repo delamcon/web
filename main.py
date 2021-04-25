@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 ADMIN_PASSWORD = '6470c92fb4087b7cdb017342bf68c7cdd21a84317dd10aa5d8faa1e7b2800c54'
 ADMIN_LOGIN = 'admin1984'
 
-class Items(db.Model):
+class Items(db.Model):  # таблица со всеми товарами
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=True)
     description = db.Column(db.Text, nullable=True)
@@ -26,7 +26,7 @@ class Items(db.Model):
     price = db.Column(db.Float, nullable=True)
 
 
-class Users(db.Model):
+class Users(db.Model):  # таблица пользователей
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(30), index=True, unique=True, nullable=True)
     password = db.Column(db.String(150), nullable=True)
@@ -38,7 +38,7 @@ class Users(db.Model):
     address = db.Column(db.String(200), nullable=True)
 
 
-class Orders(db.Model):
+class Orders(db.Model):  # таблица заказов
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     id_of_user = db.Column(db.Integer,  db.ForeignKey("users.id"))
     address = db.Column(db.String(200), nullable=True)
@@ -51,7 +51,6 @@ class Orders(db.Model):
                 default=datetime.datetime.now)
     item = db.Column(db.String(300), index=True, nullable=True)
 
-# вводит в бд данные о новом пользователе
 
 
 def main():
@@ -79,7 +78,7 @@ def main():
                 return redirect('/authorization')
 
     @app.route('/')
-    @app.route('/main_page')
+    @app.route('/main_page')  # главная страница магазина
     def main_page():
         try:
             if session['basket']:
@@ -88,7 +87,7 @@ def main():
             session['basket'] = ""
         return render_template('main_page.html', title='Главная', css_file='main_page.css', class_main='container')
 
-    @app.route('/authorization', methods=['POST', 'GET'])
+    @app.route('/authorization', methods=['POST', 'GET'])  # страница авторизации
     def authorization():
         if request.method == 'GET':
             return render_template('auth.html', title='Авторизация', css_file='signin.css', class_main='form-signin')
@@ -104,11 +103,11 @@ def main():
                 session['name'] = name
                 return redirect('/')
 
-            except Exception as e:
+            except Exception as e:  # если пользователь не зарегистрирован - редирект на страницу регистрации
                 print(traceback.format_exc())
                 return redirect('/registration')
 
-    @app.route('/registration', methods=['POST', 'GET'])
+    @app.route('/registration', methods=['POST', 'GET'])  # страница регистрации
     def registration():
         if request.method == 'GET':
             return render_template('reg.html', title='Регистрация', css_file='signup.css', class_main='form-signup')
@@ -138,54 +137,55 @@ def main():
                 print(traceback.format_exc())
                 return "ОШИБКА"
     
-    @app.route('/clear')
+    @app.route('/clear')  # очищение куки, возвращает на главную страницу
     def cookie():
         for key in list(session.keys()):
             del session[key]
         return redirect('/')
 
-    @app.route('/catalog')
+    @app.route('/catalog')  # страница каталога товаров
     def catalog():
         items = Items.query.all()
         return render_template('catalog.html', title='Каталог', css_file='catalog.css', class_main='container',
                                items=items)
 
-    @app.route('/personal_info')
+    @app.route('/personal_info')  # личный кабинет, если пользователь не зарегистрирован - вернет на главную страницу
     def personal_info():
         info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
         info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
         return render_template('personal_info.html', title='Личный кабинет', css_file='personal_info.css',
             class_main='container', user=info_user, orders=info_orders, Users=Users, Items=Items)
 
-    @app.route('/admin85367', methods=['POST', 'GET'])
+    @app.route('/admin85367', methods=['POST', 'GET'])  # админка
     def admin():
         if request.method == 'GET':
             return render_template('admin.html', css_file='signin.css', title='Админка туту')
         elif request.method == 'POST':
             password = hashlib.sha256(request.form['password'].encode('utf-8')).hexdigest()
-            if password == ADMIN_PASSWORD and request.form['login'] == ADMIN_LOGIN:
+            if password == ADMIN_PASSWORD and request.form['login'] == ADMIN_LOGIN:  # сверяем пароль и логин
+                # они записаны в сам код, если введены неверны - снова вернет на страницу авторизации админки
                 session['admin'] = '4891nimda'
                 return redirect('/admin85367/panel')
             else:
                 return redirect('/admin85367')
 
-    @app.route('/admin85367/panel', methods=['POST', 'GET'])
+    @app.route('/admin85367/panel', methods=['POST', 'GET'])  # админская панель - главная страница
     def panel():
         if request.method == 'GET':
-            if 'admin' in session.keys() and session['admin'] == '4891nimda':
+            if 'admin' in session.keys() and session['admin'] == '4891nimda':  # проверка авторизации(на всякий)
                 return render_template('panel.html', title='Панель', 
                                         css_file='panel.css', orders=Orders.query.all(), Items=Items)
             else:
                 return redirect('/admin85367')
 
-    @app.route('/admin85367/panel/add_item', methods=['POST', 'GET'])
+    @app.route('/admin85367/panel/add_item', methods=['POST', 'GET'])  # добавление нового товара в каталог
     def add_item():
         if request.method == 'GET':
-            if 'admin' in session.keys() and session['admin'] == '4891nimda':
+            if 'admin' in session.keys() and session['admin'] == '4891nimda':  # проверка авторизации
                 return render_template('add_item.html', css_file='add_item.css', title='Добавить товар')
             else:
                 return redirect('/admin85367')
-        elif request.method == 'POST':
+        elif request.method == 'POST':  # добавление товара в бд при отправки формы
             try:
                 photo = request.files['photo_url']
                 filename = secure_filename(photo.filename)
@@ -198,13 +198,13 @@ def main():
                                  photo_url=photo_path)
                 db.session.add(new_item)
                 db.session.commit()
-                return redirect('/admin85367/panel')
+                return redirect('/admin85367/panel')  # после отправки формы - редирект на панель основную
 
             except Exception as e:
                 print(traceback.format_exc())
                 return "ОШИБКА"
 
-    @app.route('/cart', methods=['POST', 'GET'])
+    @app.route('/cart', methods=['POST', 'GET'])  # корзина пользователя
     def cart():
         if request.method == 'GET':
             info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
@@ -251,7 +251,7 @@ def main():
             db.session.commit()
             return redirect('/admin85367/panel/delete_item')
 
-    @app.route('/bonus_system')
+    @app.route('/bonus_system')  # страничка информации о бонусной системе (которая не работает ехеххехе)
     def bonus_system():
         return render_template('bonuses.html', css_file='bonuses.css', title='Бонусная система')
 
