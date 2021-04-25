@@ -9,10 +9,9 @@
             <img src="/{{ Items.query.filter(Items.id == item).all()[0].photo_url }}" width="140px" height="140px"><br>
             
             <a>{{ Items.query.filter(Items.id == item).all()[0].name }}</a><br>
-            <a>{{ Items.query.filter(Items.id == item).all()[0].price }}</a><br>
+            <a>{{ Items.query.filter(Items.id == item).all()[0].price }} руб.</a><br>
         {% endfor %}
-    <br><a>Ваши данные:</a><br>
-    <a>{{ Users.name }} {{ Users.surname }} {{ Users.patronic }}</a><br>
+    <br><a>Ваши данные: {{ Users.query.filter(Users.id == session['id']).all()[0].name }} {{ Users.query.filter(Users.id == session['id']).all()[0].surname }} {{ Users.query.filter(Users.id == session['id']).all()[0].patronic }}</a><br>
     <a>Адрес: {{order.address}}</a><br>
     <input name='comment' type="hidden"><br>
     <button class="w-100 btn btn-outline-dark" type="submit">Все верно!</button><br>
