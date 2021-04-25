@@ -250,7 +250,7 @@ def main():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':
                 info_items = Items.query.all()
-                return render_template('delete_item.html', css_file='delete_item.css', title='Удалить товар',
+                return render_template('delete_item.html', css_file='delete_item.css', title='Удаление товар',
                                        info_items=info_items)
             else:
                 return redirect('/admin85367')
@@ -259,6 +259,10 @@ def main():
             db.session.delete(Items.query.filter(Items.id == int(request.form['id'])).all()[0])
             db.session.commit()
             return redirect('/admin85367/panel/delete_item')
+
+    @app.route('/bonus_system')
+    def bonus_system():
+        return render_template('bonuses.html', css_file='bonuses.css', title='Бонусная система')
 
     app.run()
 
