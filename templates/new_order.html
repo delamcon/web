@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-
+<form metod='post'>
 <div>
     <div class="orders info">
         {% for item in session['basket'].split(';') %}
-            <img src="/{{ Items.query.fiter(Items.id == item).all()[0].photo_url }}">
-            <p>{{ Items.query.fiter(Items.id == item).all()[0].name }}</p>
-            <p>{{ Items.query.fiter(Items.id == item).all()[0].price }}</p>
+    <input name='comment' type="hidden"><br>
+    <input name='comment' type="hidden"><br>
+            <img src="/{{ Items.query.filter(Items.id == item).all()[0].photo_url }}" width="140px" height="140px"><br>
+            
+            <a>{{ Items.query.filter(Items.id == item).all()[0].name }}</a><br>
+            <a>{{ Items.query.filter(Items.id == item).all()[0].price }}</a><br>
         {% endfor %}
-    <p>Ваши данные:</p>
-    <p>{{ Users.name }} {{ Users.surname }} {{ Users.patronic }}</p>
-    <p>Адрес: {{order.address}}</p>
-    <p>Ваш комментарий: {{  }}</p>
+    <br><a>Ваши данные:</a><br>
+    <a>{{ Users.name }} {{ Users.surname }} {{ Users.patronic }}</a><br>
+    <a>Адрес: {{order.address}}</a><br>
+    <input name='comment' type="hidden"><br>
+    <button class="w-100 btn btn-outline-dark" type="submit">Все верно!</button><br>
     </div>
 </div>
+</form>
 
 {% endblock %}

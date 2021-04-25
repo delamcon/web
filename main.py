@@ -154,7 +154,7 @@ def main():
         info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
         info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
         return render_template('personal_info.html', title='Личный кабинет', css_file='personal_info.css',
-            class_main='container', user=info_user, orders=info_orders, Items=Items)
+            class_main='container', user=info_user, orders=info_orders, Users=Users, Items=Items)
 
     @app.route('/admin85367', methods=['POST', 'GET'])
     def admin():
@@ -235,11 +235,14 @@ def main():
                 return redirect('/cart')
 
 
-    @app.route('/cart/new_order', methods=['POST, GET'])
+    @app.route('/cart/new_order', methods=['POST', 'GET'])
     def new_order():
-        id = Orders.query.filter(Orders.item == session['basket']).all()[0]
-        return render_template('new_order.html', title=f'Заказ №{id}', css_file='new_order.css',
-                               class_main='container', user=info_user, orders=info_orders, Items=Items)
+        if request.method == 'GET':
+            order = Orders.query.filter(Orders.item == session['basket']).all()[0]
+            return render_template('new_order.html', title=f'Заказ №{order.id}', css_file='new_order.css',
+                                class_main='container', Users=Users, order=order, Items=Items)
+        elif request.method == 'POST':
+            pass
 
 
     @app.route('/admin85367/panel/delete_item', methods=['POST', 'GET'])
