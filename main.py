@@ -66,13 +66,14 @@ def main():
             try:
                 if session['id']:
                     try:
-                        if session['basket']:
-                            session['basket'] = ';'.join(session['basket'].split(';').append(str(id)))
+                        if session['basket'] != '':
+                            ses = session['basket'].split(';')
+                            ses.append(str(id))
+                            session['basket'] = ';'.join(ses)
                         else:
                             session['basket'] = str(id)
                     except Exception:
                         session['basket'] = str(id)
-                print(session['basket'])
                 return redirect('/catalog')
             except Exception:
                 return redirect('/authorization')
@@ -207,43 +208,33 @@ def main():
     def cart():
         if request.method == 'GET':
             info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
-            info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
+            order = Orders.query.filter(Orders.id_of_user == int(session['id']) and 
+                                        Orders.item == session['basket']).all()[0]
             return render_template('cart.html', title='Корзина', css_file='cart.css',
-                                class_main='container', user=info_user, orders=info_orders, Items=Items)
+                                class_main='container', Items=Items, Users=Users,
+                                order=order)
         elif request.method == "POST":
             if 'submit' in request.form:
-                for i in session['basket'].split(';'):
-                    user_data = Users.query.filter(Users.id == session['id']).all()[0]
-                    new_order = Orders(item=i,
-                                    id_of_user=session['id'],
-                                    email=user_data.email,
-                                    created_date=datetime.datetime.now())
-
-                    try:
-                        db.session.add(new_order)
-                        db.session.commit()
-                        
-                        return redirect('/cart/new_order')
-
-                    except Exception as e:
-                        print(traceback.format_exc())
-                        return "ОШИБКА"
+                user_data = Users.query.filter(Users.id == session['id']).all()[0]
+                new_order = Orders(item=session['basket'],
+                                id_of_user=session['id'],
+                                address=request.form['address'],
+                                email=user_data.email,
+                                created_date=datetime.datetime.now(),
+                                comment_of_user=request.form['comment'])
+                try:
+                    db.session.add(new_order)
+                    db.session.commit()
+                    session['basket'] = ''
+                    return redirect('/')
+                except Exception as e:
+                    print(traceback.format_exc())
+                    return "ОШИБКА"
             elif 'id' in request.form:
                 ses = session['basket'].split(';')
                 del ses[ses.index(request.form['id'])]
                 session['basket'] = ';'.join(ses)
                 return redirect('/cart')
-
-
-    @app.route('/cart/new_order', methods=['POST', 'GET'])
-    def new_order():
-        if request.method == 'GET':
-            order = Orders.query.filter(Orders.item == session['basket']).all()[0]
-            return render_template('new_order.html', title=f'Заказ №{order.id}', css_file='new_order.css',
-                                class_main='container', Users=Users, order=order, Items=Items)
-        elif request.method == 'POST':
-            pass
-
 
     @app.route('/admin85367/panel/delete_item', methods=['POST', 'GET'])
     def delete_item():
