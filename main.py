@@ -235,9 +235,9 @@ def main():
 
 
     @app.route('/cart/new_order', methods=['POST, GET'])
-    def new_order:
-
-        return render_template('new_order.html', title=f'Заказ №{}', css_file='new_order.css',
+    def new_order():
+        id = Orders.query.filter(Orders.item == session['basket']).all()[0]
+        return render_template('new_order.html', title=f'Заказ №{id}', css_file='new_order.css',
                                class_main='container', user=info_user, orders=info_orders, Items=Items)
 
 
