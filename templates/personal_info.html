@@ -9,13 +9,22 @@
 <p>Бонусы: {{user.bonuses if user.bonuses else 0}}</p>
 </div>
 <div>
-    <h2>История заказов</h2>
+    
     {% if order %}
+        <h2>История заказов</h2>
         {% for order in info_orders%}
             <div class="orders info">
-            <p>Заказ номер {{order.id}}</p>
+                {% for item in order.item.split(';') %}
+                    <img src="/{{ Items.query.fiter(Items.id == item).all()[0].photo_url }}">
+                    <p>{{ Items.query.fiter(Items.id == item).all()[0].name }}</p>
+                    <p>{{ Items.query.fiter(Items.id == item).all()[0].price }}</p>
+                {% endfor %}
+            <p>Номер заказа: {{order.id}}</p>
             <p>Дата заказа: {{order.created_date}}</p>
-                </div>
+            <p>Адрес: {{order.created_date}}</p>
+            <p>Ваш комментарий: {{order.created_date}}</p>
+            <p>Статус заказа: {{order.created_date}}</p>
+            </div>
         {% endfor %}
     {% else %}
         <h4>История заказов пуста</h4>

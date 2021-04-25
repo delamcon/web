@@ -1,4 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div>
+    <div class="orders info">
+        {% for item in session['basket'].split(';') %}
+            <img src="/{{ Items.query.fiter(Items.id == item).all()[0].photo_url }}">
+            <p>{{ Items.query.fiter(Items.id == item).all()[0].name }}</p>
+            <p>{{ Items.query.fiter(Items.id == item).all()[0].price }}</p>
+        {% endfor %}
+    <p>Ваши данные:</p>
+    <p>{{ Users.name }} {{ Users.surname }} {{ Users.patronic }}</p>
+    <p>Адрес: {{order.address}}</p>
+    <p>Ваш комментарий: {{  }}</p>
+    </div>
+</div>
+
 {% endblock %}

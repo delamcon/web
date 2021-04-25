@@ -35,6 +35,7 @@ class Users(db.Model):
     patronic = db.Column(db.String(30), nullable=True)
     phone = db.Column(db.String(15), nullable=True)
     bonuses = db.Column(db.Float, nullable=True)
+    address = db.Column(db.String(200), nullable=True)
 
 
 class Orders(db.Model):
@@ -153,7 +154,7 @@ def main():
         info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
         info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
         return render_template('personal_info.html', title='Личный кабинет', css_file='personal_info.css',
-            class_main='container', user=info_user, orders=info_orders)
+            class_main='container', user=info_user, orders=info_orders, Items=Items)
 
     @app.route('/admin85367', methods=['POST', 'GET'])
     def admin():
