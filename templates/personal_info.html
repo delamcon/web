@@ -3,34 +3,31 @@
 
 <div class="user info">
 <h1>Личный кабинет</h1>
-<h5>{{user.name}} {{user.surname}} {{user.patronic}}</h5>
-<p>Почта: {{user.email}}</p>
-<p>Телефон: {{user.phone}}</p>
-<p>Бонусы: {{user.bonuses if user.bonuses else 0}}</p>
+<h5>{{ user.name }} {{ user.surname }} {{ user.patronic }}</h5>
+<p>Почта: {{ user.email }}</p>
+<p>Телефон: {{ user.phone }}</p>
+<p>Бонусы: {{ user.bonuses if user.bonuses else 0 }}</p>
 </div>
 <div>
-    
-    {% if order %}
-        <h2>История заказов</h2>
-        {% for order in info_orders%}
-            <div class="orders info">
-                {% for item in order.item.split(';') %}
-                    <img src="/{{ Items.query.fiter(Items.id == item).all()[0].photo_url }}">
-                    <p>{{ Items.query.fiter(Items.id == item).all()[0].name }}</p>
-                    <p>{{ Items.query.fiter(Items.id == item).all()[0].price }}</p>
-                {% endfor %}
-            <p>Номер заказа: {{order.id}}</p>
-            <p>Дата заказа: {{order.created_date}}</p>
-            <p>Адрес: {{order.created_date}}</p>
-            <p>Ваш комментарий: {{order.created_date}}</p>
-            <p>Статус заказа: {{order.created_date}}</p>
-            </div>
-        {% endfor %}
-    {% else %}
-        <h4>История заказов пуста</h4>
-    {% endif %}
+{% if order_count %}
+    <h2>История заказов</h2>
+    {% for order in info_orders%}
+        <div class="orders info">
+            {% for item in order.item.split(';') %}
+                <img src="/{{ Items.query.fiter(Items.id == item).all()[0].photo_url }}">
+                <p>{{ Items.query.fiter(Items.id == item).all()[0].name }}</p>
+                <p>{{ Items.query.fiter(Items.id == item).all()[0].price }}</p>
+            {% endfor %}
+        <p>Номер заказа: {{order.id}}</p>
+        <p>Дата заказа: {{order.created_date}}</p>
+        <p>Адрес: {{order.created_date}}</p>
+        <p>Ваш комментарий: {{order.created_date}}</p>
+        <p>Статус заказа: {{order.created_date}}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <h4>История заказов пуста</h4>
+{% endif %}
 </div>
-
-
 
 {% endblock %}

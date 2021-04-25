@@ -153,8 +153,10 @@ def main():
     def personal_info():
         info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
         info_orders = Orders.query.filter(Orders.id_of_user == int(session['id'])).all()
+        print(len(info_orders))
         return render_template('personal_info.html', title='Личный кабинет', css_file='personal_info.css',
-            class_main='container', user=info_user, orders=info_orders, Users=Users, Items=Items)
+            class_main='container', user=info_user, orders=info_orders, 
+            Users=Users, Items=Items, order_count=(len(info_orders) > 0))
 
     @app.route('/admin85367', methods=['POST', 'GET'])  # админка
     def admin():
