@@ -240,8 +240,14 @@ def main():
                                 email=user_data.email,
                                 created_date=datetime.datetime.now(),
                                 comment_of_user=request.form['comment'])
+                
                 try:
                     db.session.add(new_order)
+                    db.session.commit()
+                    for item in session['basket'].split(';'):
+                        i = item.split(',')
+                        table_item = Items.query.filter(Items.id == i[0]).first()
+                        table_item.count -= int(i[1])
                     db.session.commit()
                     session['basket'] = ''
                     return redirect('/')
