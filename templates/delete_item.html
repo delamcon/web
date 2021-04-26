@@ -1,6 +1,6 @@
 {% extends "admin_base.html" %}
 {% block content %}
-<h3>Удалить товар</h3>
+<h3>Удаление товаров</h3>
 
 <form method="post">
 <div class="row">
@@ -10,11 +10,11 @@
             <br>
             <a>название: {{ item.name }}</a>
             <br>
-            <a>название: {{ item.name }}</a>
+            <a>описание: {{ item.description }}</a>
             <br>
-            <a>цена: {{ item.price }}</a>
+            <a>цена: {{ item.price }} рублей</a>
             <br>
-            <a>{{ item.count }}</a>
+            <a>количество на складе: {{ item.count }}</a>
             <br>
             <input type="hidden" name="id", value="{{ item.id }}" >
             <button class="w-30 btn btn-outline-dark" type="submit">Удалить</button>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Изменение личных данных</h1>
+<form method="post">
+    <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+    <label for="inputName" class="visually-hidden">name</label>
+        <input name="name" type="text" id="inputName" class="form-control" placeholder="{{ user.name }}" required>
+    <label for="inputSurname" class="visually-hidden">surname</label>
+        <input name="surname" type="text" id="inputSurname" class="form-control" placeholder="{{ user.surname }}" required>
+    <label for="inputPatronic" class="visually-hidden">patronic</label>
+        <input name="patronic" type="text" id="inputPatronic" class="form-control" placeholder="{{ user.patronic }}">
+    <label for="inputPhone" class="visually-hidden">phone</label>
+        <input name="phone" type="text" id="inputPhone" class="form-control" placeholder="{{ user.phone }}" required>
+    <label for="inputEmail" class="visually-hidden">Email</label>
+        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="{{ user.email }}" required autofocus>
+  <label for="inputAddress" class="visually-hidden">Email</label>
+        <input name="address" type="text" id="inputAddress" class="form-control" placeholder="{{ user.address }}" required autofocus>
+     <button class="w-100 btn btn-outline-dark" type="submit">Сохранить изменения</button>
+ </form>
+
+{% endblock %}
