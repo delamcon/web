@@ -30,14 +30,16 @@
     {% endif %}
     <a>Статус: {{ order.status }}</a><br>
     <a>Изменить статус: <input name='updatestatus'></a><br>
-        <br><label for="inputComment">Комменатрий отправителя:</label><br>
+        <a>Комментарий оправителя: {{ order.comment_of_sender}}</a>
+        <br><label for="inputComment">Изменить комменатрий отправителя:</label><br>
     <textarea id="inputComment" name="comment" rows="5"></textarea>
     <input type="hidden" name="id" value="{{ order.id }}">
     <button class="w-10 btn btn-outline-dark" type="submit">Изменить</button>
     </form>
 </div>
-</div>
+
 {% endfor %}
+</div>
 {% else %}
 <h3>История заказов пуста</h3>
 {% endif %}
