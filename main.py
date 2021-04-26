@@ -278,12 +278,12 @@ def main():
             return render_template('info_changing.html', css_file='info_changing.css', title='Изменение данных',
                                    user=user_data)
         elif request.method == 'POST':
-            order = Users.query.filter(Users.id == session['id']]).first()
-            order.name = request.form['name'],
-            order.surname = request.form['surname'],
-            order.patronic = request.form['patronic'],
-            order.phone = request.form['phone'],
-            order.email = request.form['email'],
+            order = Users.query.filter(Users.id == session['id']).first()
+            order.name = request.form['name']
+            order.surname = request.form['surname']
+            order.patronic = request.form['patronic']
+            order.phone = request.form['phone']
+            order.email = request.form['email']
             order.address = request.form['address']
             db.session.commit()
             return redirect('/personal_info')
