@@ -2,7 +2,6 @@
 {% block content %}
 <h3>Удаление товаров</h3>
 
-<form method="post">
 <div class="row">
     {% for item in info_items %}
         <div class="col-lg-4">
@@ -16,10 +15,11 @@
             <br>
             <a>количество на складе: {{ item.count }}</a>
             <br>
-            <input type="hidden" name="id", value="{{ item.id }}" >
-            <button class="w-30 btn btn-outline-dark" type="submit">Удалить</button>
+            <form method="post">
+                <input type="hidden" name="id" value="{{ item.id }}">
+                <button class="w-30 btn btn-outline-dark" type="submit">Удалить</button>
+            </form>
         </div>
     {% endfor %}
 </div>
-</form>
 {% endblock %}
