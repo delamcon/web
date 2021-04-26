@@ -6,7 +6,9 @@
 <h5>{{ user.name }} {{ user.surname }} {{ user.patronic }}</h5>
 <p>Почта: {{ user.email }}</p>
 <p>Телефон: {{ user.phone }}</p>
+    <p>Адрес доставки: {{ user.address }}</p>
 <p>Бонусы: {{ user.bonuses if user.bonuses else 0 }}</p>
+    <a class="btn btn-outline-dark" href="./info_changing">Изменить данные</a>
 </div>
 <div>
 {% if orders %}

@@ -261,6 +261,15 @@ def main():
     def bonus_system():
         return render_template('bonuses.html', css_file='bonuses.css', title='Бонусная система')
 
+    @app.route('/info_changing', methods=['POST', 'GET'])
+    def info_changing():
+        if request.method == 'GET':
+            user_data = Users.query.filter(Users.id == session['id']).all()[0]
+            return render_template('info_changing.html', css_file='info_changing.css', title='Изменение данных',
+                                   user=user_data)
+        elif request.method == 'POST':
+            pass
+
     app.run()
 
 
