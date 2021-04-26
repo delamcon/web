@@ -220,11 +220,14 @@ def main():
     def cart():
         if request.method == 'GET':
             if session['id']:
-                info_user = Users.query.filter(Users.id == int(session['id'])).all()[0]
-                # order = Orders.query.filter(Orders.id_of_user == int(session['id']) and 
-                #                             Orders.item == session['basket']).all()[0]
+                total = 0
+                if session['basket']:
+                    for item in session['basket'].split(';'):
+                        t = item.split(',')
+                        total += Items.query.filter(Items.id == int(t[0])).all()[0].price * int(t[1])
                 return render_template('cart.html', title='Корзина', css_file='cart.css',
-                                    class_main='container', Items=Items, Users=Users)
+                                    class_main='container', Items=Items, 
+                                    Users=Users, total=total)
             else:
                 return redirect('/authorization')
         elif request.method == "POST":
@@ -287,7 +290,6 @@ def main():
             order.address = request.form['address']
             db.session.commit()
             return redirect('/personal_info')
-
 
     app.run()
 
