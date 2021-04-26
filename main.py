@@ -60,7 +60,7 @@ def main():
     def item(id):
         if request.method == 'GET':
             item = Items.query.filter(Items.id == id).all()[0]
-            return render_template('item.html', item=item)
+            return render_template('item.html', item=item, css_file='cart.css')
         elif request.method == 'POST':
             try:
                 if session['id']:
@@ -245,7 +245,7 @@ def main():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':
                 info_items = Items.query.all()
-                return render_template('delete_item.html', css_file='delete_item.css', title='Удаление товар',
+                return render_template('delete_item.html', css_file='delete_item.css', title='Удаление товаров',
                                        info_items=info_items)
             else:
                 return redirect('/admin85367')

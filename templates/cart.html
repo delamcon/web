@@ -25,8 +25,12 @@
 <div>
     <div class="orders info">
     <br><a>Ваши данные: {{ Users.query.filter(Users.id == session['id']).all()[0].name }} {{ Users.query.filter(Users.id == session['id']).all()[0].surname }} {{ Users.query.filter(Users.id == session['id']).all()[0].patronic }}</a><br>
-    <a>Адрес: <input name='address' type="text"></a><br>
-    <a>Комментарий продавцу: </a><input name='comment' type="text"><br>
+        <br><a>Номер телефона: {{ Users.query.filter(Users.id == session['id']).all()[0].phone }}</a><br>
+        <br><a>Почта: {{ Users.query.filter(Users.id == session['id']).all()[0].email }}</a><br>
+        <br><label for="inputAddress">Укажите адрес доставки:</label><br>
+    <textarea id="inputAddress" name="address" rows="3"></textarea>
+        <br><label for="inputComment">Комменатрий к заказу:</label><br>
+    <textarea id="inputComment" name="comment" rows="5"></textarea>
     </div>
 </div>
 
