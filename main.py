@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, make_response, url_for, session
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import update
 import datetime
 import hashlib
 import traceback
@@ -268,7 +269,22 @@ def main():
             return render_template('info_changing.html', css_file='info_changing.css', title='Изменение данных',
                                    user=user_data)
         elif request.method == 'POST':
-            pass
+            user = (update(Users).
+                    where(Users.id == session['id']).
+                    values(name=request.form['name'],
+                           surname=request.form['surname'],
+                           patronic=request.form['patronic'],
+                           phone=request.form['phone'],
+                           email=request.form['email'],
+                           address=request.form['address']))
+            try:
+                db.session.add(user)
+                db.session.commit()
+                return redirect('/personal_info')
+            except Exception as e:
+                    print(traceback.format_exc())
+                    return "ОШИБКА"
+
 
     app.run()
 
