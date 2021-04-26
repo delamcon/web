@@ -187,12 +187,14 @@ def main():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':  # проверка авторизации(на всякий)
                 return render_template('panel.html', title='Панель', 
-                                        css_file='panel.css', orders=Orders.query.all(), Items=Items)
+                                        css_file='panel.css', orders=Orders.query.all(), Items=Items, Users=
+                                       Users)
             else:
                 return redirect('/admin85367')
         elif request.method == "POST":
             order = Orders.query.filter(Orders.id == request.form["id"]).first()
             order.track_num = request.form['track_num']
+            order.comment_of_sender = request.form['comment']
             db.session.commit()
             return redirect('/admin85367/panel')
 
@@ -231,12 +233,13 @@ def main():
                     for item in session['basket'].split(';'):
                         t = item.split(',')
                         total += Items.query.filter(Items.id == int(t[0])).all()[0].price * int(t[1])
+                        # вычисляем итоговую стоимость заказа
                 return render_template('cart.html', title='Корзина', css_file='cart.css',
                                     class_main='container', Items=Items, 
                                     Users=Users, total=total)
             else:
                 return redirect('/authorization')
-        elif request.method == "POST":
+        elif request.method == "POST":  # оформление заказа
             print(request.form)
             if 'address' in request.form:
                 user_data = Users.query.filter(Users.id == session['id']).all()[0]
@@ -245,10 +248,12 @@ def main():
                                 address=request.form['address'],
                                 email=user_data.email,
                                 created_date=datetime.datetime.now(),
-                                comment_of_user=request.form['comment'])
+                                comment_of_user=request.form['comment'],
+                                   status='оплачен')  # так как мы не добавляли форму оплаты - по дефолту заказ оплачен
                 try:
                     db.session.add(new_order)
                     db.session.commit()
+                    # уменьшаем количество товаров на складе
                     for item in session['basket'].split(';'):
                         i = item.split(',')
                         table_item = Items.query.filter(Items.id == i[0]).first()
@@ -259,17 +264,17 @@ def main():
                 except Exception as e:
                     print(traceback.format_exc())
                     return "ОШИБКА"
-            elif 'id' in request.form:
+            elif 'id' in request.form:  # удаление товара из корзины
                 ses = session['basket'].split(';')
                 print(request.form['id'])
                 del ses[ses.index(request.form['id'])]
                 session['basket'] = ';'.join(ses)
                 return redirect('/cart')
 
-    @app.route('/admin85367/panel/delete_item', methods=['POST', 'GET'])
+    @app.route('/admin85367/panel/delete_item', methods=['POST', 'GET'])  # удаление товара из каталога
     def delete_item():
         if request.method == 'GET':
-            if 'admin' in session.keys() and session['admin'] == '4891nimda':
+            if 'admin' in session.keys() and session['admin'] == '4891nimda':  # проверка авторизации
                 info_items = Items.query.all()
                 return render_template('delete_item.html', css_file='delete_item.css', title='Удаление товаров',
                                        info_items=info_items)

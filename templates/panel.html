@@ -3,8 +3,9 @@
 
 <h2>Заказы</h2>
 {% if orders %}
+<div class="row">
 {% for order in orders %}
-<div>
+<div class="col-lg-4">
     <form method="post">
     {% for i in order.item.split(';') %}
         <br><img src="/{{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].photo_url }}" width="140px" height="140px">
@@ -14,9 +15,14 @@
         <a>название: {{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].name }}</a>
     {% endfor %}
     <br><br>
-    <a>{{ order.email }}</a><br>
-    <a>{{ order.created_date }}</a><br>
-    <a>Адрес: {{ order.address }}</a>
+        <a>Фамилия:{{ Users.query.filter(Users.id == order.id_of_user).all()[0].surname }}</a><br>
+        <a>Имя:{{ Users.query.filter(Users.id == order.id_of_user).all()[0].name }}</a><br>
+        <a>Отчество:{{ Users.query.filter(Users.id == order.id_of_user).all()[0].patronic }}</a><br>
+        <a>Номер телефона:{{ Users.query.filter(Users.id == order.id_of_user).all()[0].phone }}</a><br>
+        <a>Комментарий заказчика: {{ order.comment_of_user }}</a><br>
+    <a>Почта:{{ order.email }}</a><br>
+    <a>Дата оформления: {{ order.created_date }}</a><br>
+    <a>Адрес: {{ order.address }}</a><br>
     {% if order.track_num %}
         <a>Трек номер: {{ order.track_num }}</a><br>
     {% else %}
@@ -24,9 +30,12 @@
     {% endif %}
     <a>Статус: {{ order.status }}</a><br>
     <a>Изменить статус: <input name='updatestatus'></a><br>
+        <br><label for="inputComment">Комменатрий отправителя:</label><br>
+    <textarea id="inputComment" name="comment" rows="5"></textarea>
     <input type="hidden" name="id" value="{{ order.id }}">
     <button class="w-10 btn btn-outline-dark" type="submit">Изменить</button>
     </form>
+</div>
 </div>
 {% endfor %}
 {% else %}
