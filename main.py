@@ -233,7 +233,6 @@ def main():
         elif request.method == "POST":
             print(request.form)
             if 'address' in request.form:
-                user_data = Users.query.filter(Users.id == session['id']).all()[0]
                 new_order = Orders(item=session['basket'],
                                 id_of_user=session['id'],
                                 address=request.form['address'],
@@ -247,7 +246,7 @@ def main():
                         i = item.split(',')
                         table_item = Items.query.filter(Items.id == i[0]).first()
                         table_item.count -= int(i[1])
-                    db.session.commit()
+                        db.session.commit()
                     session['basket'] = ''
                     return redirect('/')
                 except Exception as e:
