@@ -220,7 +220,7 @@ def main():
     def cart():
         if request.method == 'GET':
             if session['id']:
-                total = 0
+                total = 200
                 if session['basket']:
                     for item in session['basket'].split(';'):
                         t = item.split(',')

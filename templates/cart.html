@@ -12,7 +12,7 @@
         <a>цена: {{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].price * (i.split(',')[1] | int) }} рублей</a><br>
         <a>название: {{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].name }}</a>
         <form method="post">
-        <input type="hidden" name="id", value="{{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].id }},{{i.split(',')[1]}}" >
+        <input type="hidden" name="id" value="{{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].id }},{{i.split(',')[1]}}" >
         <button class="w-30 btn btn-outline-dark" type="submit">Удалить</button>
         </form>
     </div>
@@ -37,7 +37,7 @@
     </div>
 </div>
 
-<input type="hidden" name="submit", value="delete">
+<input type="hidden" name="submit" value="delete">
 <button class="w-100 btn btn-outline-dark" type="submit">Оформить заказ</button>
 </form>
 {% endif %}
