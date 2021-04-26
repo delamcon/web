@@ -232,7 +232,7 @@ def main():
                 return redirect('/authorization')
         elif request.method == "POST":
             print(request.form)
-            if 'submit' in request.form:
+            if 'address' in request.form:
                 user_data = Users.query.filter(Users.id == session['id']).all()[0]
                 new_order = Orders(item=session['basket'],
                                 id_of_user=session['id'],
@@ -240,7 +240,6 @@ def main():
                                 email=user_data.email,
                                 created_date=datetime.datetime.now(),
                                 comment_of_user=request.form['comment'])
-                
                 try:
                     db.session.add(new_order)
                     db.session.commit()
