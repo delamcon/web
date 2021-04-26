@@ -14,7 +14,6 @@
         <form method="post">
         <input type="hidden" name="id" value="{{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].id }},{{i.split(',')[1]}}" >
         <button class="w-30 btn btn-outline-dark" type="submit">Удалить</button>
-        </form>
     </div>
     {% endif %}
 </div> 
