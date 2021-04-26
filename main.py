@@ -19,51 +19,51 @@ ADMIN_LOGIN = 'admin1984'
 
 class Items(db.Model):  # таблица со всеми товарами
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(100), nullable=True)
-    description = db.Column(db.Text, nullable=True)
-    photo_url = db.Column(db.Text, nullable=True)
-    count = db.Column(db.Integer, nullable=True)
-    price = db.Column(db.Float, nullable=True)
+    name = db.Column(db.String(100), nullable=True)   # название товара
+    description = db.Column(db.Text, nullable=True)  # описание
+    photo_url = db.Column(db.Text, nullable=True)  # ссылка на фотографию
+    count = db.Column(db.Integer, nullable=True)  # количество товара на складе
+    price = db.Column(db.Float, nullable=True)   # стоимость 1 единицы товара
 
 
 class Users(db.Model):  # таблица пользователей
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email = db.Column(db.String(30), index=True, unique=True, nullable=True)
-    password = db.Column(db.String(150), nullable=True)
-    name = db.Column(db.String(30), nullable=True)
-    surname = db.Column(db.String(30), nullable=True)
-    patronic = db.Column(db.String(30), nullable=True)
-    phone = db.Column(db.String(15), nullable=True)
-    bonuses = db.Column(db.Float, nullable=True)
-    address = db.Column(db.String(200), nullable=True)
+    email = db.Column(db.String(30), index=True, unique=True, nullable=True)  # почта
+    password = db.Column(db.String(150), nullable=True)   # пароль(хэшируется)
+    name = db.Column(db.String(30), nullable=True)  # имя пользователя
+    surname = db.Column(db.String(30), nullable=True)   # фамилия
+    patronic = db.Column(db.String(30), nullable=True)  # отчество
+    phone = db.Column(db.String(15), nullable=True)  # номер телефона
+    bonuses = db.Column(db.Float, nullable=True)   # бонусный счет
+    address = db.Column(db.String(200), nullable=True)  # адрес доставки(?)
 
 
 class Orders(db.Model):  # таблица заказов
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    id_of_user = db.Column(db.Integer,  db.ForeignKey("users.id"))
-    address = db.Column(db.String(200), nullable=True)
-    email = db.Column(db.String(30), index=True, nullable=True)
-    track_num = db.Column(db.String(30), nullable=True)
-    comment_of_user = db.Column(db.String(200), nullable=True)
-    comment_of_sender = db.Column(db.String(200), nullable=True)
-    status = db.Column(db.String(30), nullable=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)  # номер заказа
+    id_of_user = db.Column(db.Integer,  db.ForeignKey("users.id"))  # id заказчика из таблицы пользователей
+    address = db.Column(db.String(200), nullable=True)  # адрес доставки
+    email = db.Column(db.String(30), index=True, nullable=True)  # почта пользователя
+    track_num = db.Column(db.String(30), nullable=True)  # трек номер
+    comment_of_user = db.Column(db.String(200), nullable=True)  # комментарий заказчика
+    comment_of_sender = db.Column(db.String(200), nullable=True)  # комментарий отправителя
+    status = db.Column(db.String(30), nullable=True)  # статус заказа
     created_date = db.Column(db.DateTime,
-                default=datetime.datetime.now)
-    item = db.Column(db.String(300), index=True, nullable=True)
+                default=datetime.datetime.now)   # дата создания
+    item = db.Column(db.String(300), index=True, nullable=True)   # товары
 
 
 
 def main():
-    db.create_all()
+    db.create_all()  # создание базы данных
     
-    @app.route('/item/<id>', methods=['POST', 'GET'])
+    @app.route('/item/<id>', methods=['POST', 'GET'])  # страница отдельного товара
     def item(id):
         if request.method == 'GET':
             item = Items.query.filter(Items.id == id).all()[0]
             return render_template('item.html', item=item, css_file='cart.css')
         elif request.method == 'POST':
             try:
-                if session['id']:
+                if session['id']:  # получаем данные о нужном товаре
                     try:
                         if session['basket'] != '':
                             ses = session['basket'].split(';')
@@ -92,6 +92,7 @@ def main():
         if request.method == 'GET':
             return render_template('auth.html', title='Авторизация', css_file='signin.css', class_main='form-signin')
         elif request.method == 'POST':
+            # получение хэшированного ввденого пароля
             hashed_password = hashlib.sha256(request.form['password'].encode('utf-8')).hexdigest()
             try:
                 # получаем данные пользователя, чтобы закинуть в куки
@@ -101,7 +102,7 @@ def main():
                 name = user_data[0].name
                 session['id'] = id
                 session['name'] = name
-                return redirect('/')
+                return redirect('/')  # возвращаем на главную страницу после авторизации
 
             except Exception as e:  # если пользователь не зарегистрирован - редирект на страницу регистрации
                 print(traceback.format_exc())
@@ -112,8 +113,9 @@ def main():
         if request.method == 'GET':
             return render_template('reg.html', title='Регистрация', css_file='signup.css', class_main='form-signup')
         elif request.method == 'POST':
+            # хэшируем введеный пароль
             hashed_password = hashlib.sha256(request.form['password'].encode('utf-8')).hexdigest()
-            new_user = Users(name=request.form['name'],
+            new_user = Users(name=request.form['name'],  # добавляем информацию о новом пользовтале в бд
                             surname=request.form['surname'],
                             patronic=request.form['patronic'],
                             phone=request.form['phone'],
@@ -131,7 +133,7 @@ def main():
                 name = user_data.name
                 session['id'] = id
                 session['name'] = name
-                return redirect('/')
+                return redirect('/')  # после регистрации - возврат на главную страницу
 
             except Exception as e:
                 print(traceback.format_exc())
@@ -145,7 +147,7 @@ def main():
 
     @app.route('/catalog')  # страница каталога товаров
     def catalog():
-        items = Items.query.all()
+        items = Items.query.all()  # получаем информацию о всех товарах из бд
         return render_template('catalog.html', title='Каталог', css_file='catalog.css', class_main='container',
                                items=items)
 
@@ -167,9 +169,9 @@ def main():
             if password == ADMIN_PASSWORD and request.form['login'] == ADMIN_LOGIN:  # сверяем пароль и логин
                 # они записаны в сам код, если введены неверны - снова вернет на страницу авторизации админки
                 session['admin'] = '4891nimda'
-                return redirect('/admin85367/panel')
+                return redirect('/admin85367/panel')  # если данные введены верно - возврат на панель администратора
             else:
-                return redirect('/admin85367')
+                return redirect('/admin85367')  # если нет - снова страница авторизации админки
 
     @app.route('/admin85367/panel', methods=['POST', 'GET'])  # админская панель - главная страница
     def panel():
