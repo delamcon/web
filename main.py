@@ -184,6 +184,11 @@ def main():
                                         css_file='panel.css', orders=Orders.query.all(), Items=Items)
             else:
                 return redirect('/admin85367')
+        elif request.method == "POST":
+            order = Orders.query.filter(Orders.id == request.form["id"]).first()
+            order.track_num = request.form['track_num']
+            db.session.commit()
+            return redirect('/admin85367/panel')
 
     @app.route('/admin85367/panel/add_item', methods=['POST', 'GET'])  # добавление нового товара в каталог
     def add_item():

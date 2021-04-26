@@ -5,8 +5,9 @@
 {% if orders %}
 {% for order in orders %}
 <div>
-    {% for i in order.item.split(',') %}
-        <img src="/{{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].photo_url }}" width="140px" height="140px">
+    <form method="post">
+    {% for i in order.item.split(';') %}
+        <br><img src="/{{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].photo_url }}" width="140px" height="140px">
         <br>
         <a>цена: {{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].price }}</a>
         <br>
@@ -14,7 +15,18 @@
     {% endfor %}
     <br><br>
     <a>{{ order.email }}</a><br>
-    <a>{{ order.created_date }}</a>
+    <a>{{ order.created_date }}</a><br>
+    <a>Адрес: {{ order.address }}</a>
+    {% if order.track_num %}
+        <a>Трек номер: {{ order.track_num }}</a><br>
+    {% else %}
+        <a>Трек номер: <input name='track_num'></a><br>
+    {% endif %}
+    <a>Статус: {{ order.status }}</a><br>
+    <a>Изменить статус: <input name='updatestatus'></a><br>
+    <input type="hidden" name="id" value="{{ order.id }}">
+    <button class="w-10 btn btn-outline-dark" type="submit">Изменить</button>
+    </form>
 </div>
 {% endfor %}
 {% else %}
