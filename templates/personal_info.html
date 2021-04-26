@@ -26,6 +26,17 @@
         <a>Адрес: {{order.address}}</a><br>
         <a>Ваш комментарий: {{order.comment_of_user}}</a><br>
         <a>Статус заказа: {{order.status}}</a><br>
+            {% if order.track_num %}
+            <a>Трек номер: {{order.track_num}}</a><br>
+            {% else %}
+            <a>Трек номер ещё не присвоен</a><br>
+            {% endif %}
+            {% if order.comment_of_sender %}
+            <a>Комментарий отправителя: {{order.comment_of_sender}}</a><br>
+            {% else %}
+            <a>Комментарий отправителя отсутсвует</a><br>
+            {% endif %}
+
         </div>
     {% endfor %}
 {% else %}
