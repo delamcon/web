@@ -18,17 +18,17 @@
   <p class="h5 my-0 me-md-auto fw-normal text-muted">Study spot</p>
   <nav class="my-2 my-md-0 me-md-3">
     {% if session['id'] %}
-    <a class="p-2 text-muted" href="./cart">Корзина</a>
+    <a class="p-2 text-muted" href="/cart">Корзина</a>
     {% else %}
-    <a class="p-2 text-muted" href="./authorization">Корзина</a>
+    <a class="p-2 text-muted" href="/authorization">Корзина</a>
     {% endif %}
-    <a class="p-2 text-muted" href="./main_page">Главная</a>
+    <a class="p-2 text-muted" href="/main_page">Главная</a>
     {% if session['id'] %}
-    <a class="p-2 text-muted" href="./personal_info">Личный кабинет</a>
+    <a class="p-2 text-muted" href="/personal_info">Личный кабинет</a>
     {% else %}
-    <a class="p-2 text-muted" href="./authorization">Личный кабинет</a>
+    <a class="p-2 text-muted" href="/authorization">Личный кабинет</a>
     {% endif %}
-    <a class="p-2 text-muted" href="./catalog">Каталог</a>
+    <a class="p-2 text-muted" href="/catalog">Каталог</a>
   </nav>
   {% if session['id'] %}
     <a class="btn btn-outline-secondary" href="./clear">Выход</a>

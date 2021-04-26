@@ -65,14 +65,16 @@ def main():
             try:
                 if session['id']:
                     try:
+
                         if session['basket'] != '':
                             ses = session['basket'].split(';')
-                            ses.append(str(id))
+                            ses.append(f'{str(id)},{request.form["product_amount"]}')
                             session['basket'] = ';'.join(ses)
                         else:
-                            session['basket'] = str(id)
+                            session['basket'] = f'{str(id)},{request.form["product_amount"]}'
+                        print(session)
                     except Exception:
-                        session['basket'] = str(id)
+                        session['basket'] = f'{str(id)},{request.form["product_amount"]}'
                 return redirect('/catalog')
             except Exception:
                 return redirect('/authorization')
@@ -218,6 +220,7 @@ def main():
             else:
                 return redirect('/authorization')
         elif request.method == "POST":
+            print(request.form)
             if 'submit' in request.form:
                 user_data = Users.query.filter(Users.id == session['id']).all()[0]
                 new_order = Orders(item=session['basket'],
@@ -236,6 +239,7 @@ def main():
                     return "ОШИБКА"
             elif 'id' in request.form:
                 ses = session['basket'].split(';')
+                print(request.form['id'])
                 del ses[ses.index(request.form['id'])]
                 session['basket'] = ';'.join(ses)
                 return redirect('/cart')

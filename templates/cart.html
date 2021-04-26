@@ -5,16 +5,16 @@
     
 {% for i in session['basket'].split(';') %}
 <div class="row">
-
     {% if i != '' %}
     <div class="col-lg-4">
-        <img src="/{{ Items.query.filter(Items.id == i).all()[0].photo_url }}" width="140px" height="140px">
-        <br>
-        <a>цена: {{ Items.query.filter(Items.id == i).all()[0].price }} рублей</a>
-        <br>
-        <a>название: {{ Items.query.filter(Items.id == i).all()[0].name }}</a>
-        <input type="hidden" name="id", value="{{ Items.query.filter(Items.id == i).all()[0].id }}" >
+        <img src="/{{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].photo_url }}" width="140px" height="140px"><br>
+        <a>количество: {{ i.split(',')[1] }}</a><br>
+        <a>цена: {{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].price * (i.split(',')[1] | int) }} рублей</a><br>
+        <a>название: {{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].name }}</a>
+        <form method="post">
+        <input type="hidden" name="id", value="{{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].id }},{{i.split(',')[1]}}" >
         <button class="w-30 btn btn-outline-dark" type="submit">Удалить</button>
+        </form>
     </div>
     {% endif %}
 </div> 

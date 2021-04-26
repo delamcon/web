@@ -5,12 +5,12 @@
 {% if orders %}
 {% for order in orders %}
 <div>
-    {% for i in order.item %}
-        <img src="/{{ Items.query.filter(Items.id == i).all()[0].photo_url }}" width="140px" height="140px">
+    {% for i in order.item.split(',') %}
+        <img src="/{{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].photo_url }}" width="140px" height="140px">
         <br>
-        <a>цена: {{ Items.query.filter(Items.id == i).all()[0].price }}</a>
+        <a>цена: {{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].price }}</a>
         <br>
-        <a>название: {{ Items.query.filter(Items.id == i).all()[0].name }}</a>
+        <a>название: {{ Items.query.filter(Items.id == i.split(',')[0]).all()[0].name }}</a>
     {% endfor %}
     <br><br>
     <a>{{ order.email }}</a><br>

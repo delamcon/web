@@ -14,9 +14,10 @@
     {% for order in orders%}
         <div class="orders info">
             {% for item in order.item.split(';') %}
-                <img src="/{{ Items.query.filter(Items.id == item).all()[0].photo_url }}" width="200px" height="200px"><br>
-                <a>{{ Items.query.filter(Items.id == item).all()[0].name }}</a><br>
-                <a>{{ Items.query.filter(Items.id == item).all()[0].price }}</a><br>
+                <img src="/{{ Items.query.filter(Items.id == item.split(',')[0]).all()[0].photo_url }}" width="200px" height="200px"><br>
+                <a>{{ Items.query.filter(Items.id == item.split(',')[0]).all()[0].name }}</a><br>
+                <a>количество: {{ item.split(',')[1] }}</a>>
+                <a>{{ Items.query.filter(Items.id == item.split(',')[0]).all()[0].price }}</a><br>
             {% endfor %}
         <a>Номер заказа: {{order.id}}</a><br>
         <a>Дата заказа: {{order.created_date}}</a><br>
