@@ -9,13 +9,19 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+# папка, в которую загружаются картинки новых товаров
 app.config['UPLOAD_FOLDER'] = 'static/img'
+# путь до базы данных
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/shop.db'
+# включение системы отслеживания изменений
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+# период "жизни" данных сессии
 app.config['PERimport hashlibMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 db = SQLAlchemy(app)
 
+# захэшированный пароль администратора
 ADMIN_PASSWORD = '6470c92fb4087b7cdb017342bf68c7cdd21a84317dd10aa5d8faa1e7b2800c54'
+# логин администратора
 ADMIN_LOGIN = 'admin1984'
 
 class Items(db.Model):  # таблица со всеми товарами
@@ -233,6 +239,7 @@ def main():
         elif request.method == "POST":
             print(request.form)
             if 'address' in request.form:
+                user_data = Users.query.filter(Users.id == session['id']).all()[0]
                 new_order = Orders(item=session['basket'],
                                 id_of_user=session['id'],
                                 address=request.form['address'],
@@ -246,7 +253,7 @@ def main():
                         i = item.split(',')
                         table_item = Items.query.filter(Items.id == i[0]).first()
                         table_item.count -= int(i[1])
-                        db.session.commit()
+                    db.session.commit()
                     session['basket'] = ''
                     return redirect('/')
                 except Exception as e:
