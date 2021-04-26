@@ -59,7 +59,6 @@ class Orders(db.Model):  # таблица заказов
     item = db.Column(db.String(300), index=True, nullable=True)   # товары
 
 
-
 def main():
     db.create_all()  # создание базы данных
     
@@ -186,15 +185,19 @@ def main():
     def panel():
         if request.method == 'GET':
             if 'admin' in session.keys() and session['admin'] == '4891nimda':  # проверка авторизации(на всякий)
-                return render_template('panel.html', title='Панель', 
-                                        css_file='panel.css', orders=Orders.query.all(), Items=Items, Users=
-                                       Users)
+                return render_template('panel.html', title='Панель', css_file='panel.css', 
+                                       orders=Orders.query.all(), Items=Items, Users= Users)
             else:
                 return redirect('/admin85367')
         elif request.method == "POST":
             order = Orders.query.filter(Orders.id == request.form["id"]).first()
-            order.track_num = request.form['track_num']
-            order.comment_of_sender = request.form['comment']
+            print(request.form)
+            if 'track_num' in request.form:
+                order.track_num = request.form['track_num']
+            if 'comment' in request.form:
+                order.comment_of_sender = request.form['comment']
+            if 'updatestatus' in request.form:
+                order.status = request.form['updatestatus']
             db.session.commit()
             return redirect('/admin85367/panel')
 

@@ -30,9 +30,12 @@
     {% endif %}
     <a>Статус: {{ order.status }}</a><br>
     <a>Изменить статус: <input name='updatestatus'></a><br>
-        <a>Комментарий оправителя: {{ order.comment_of_sender}}</a>
-        <br><label for="inputComment">Изменить комменатрий отправителя:</label><br>
+    {% if order.track_num %}
+    <a>Комментарий оправителя: {{ order.comment_of_sender}}</a>
+    {% else %}
+    <br><label for="inputComment">Изменить комменатрий отправителя:</label><br>
     <textarea id="inputComment" name="comment" rows="5"></textarea>
+    {% endif %}
     <input type="hidden" name="id" value="{{ order.id }}">
     <button class="w-10 btn btn-outline-dark" type="submit">Изменить</button>
     </form>
